@@ -1,0 +1,36 @@
+<section>
+    <div class="container">
+        <h1 class="voga white-text m-auto pt-5 text-center">{{#if msg}}{{msg}} {{else}} Your Cart {{/if}}</h1>
+        <table class="table table-striped font01 text-white text-center mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {{#each products}}
+                <tr>
+                    <td>
+                        <img src="/poster-images/{{this._id}}.png" alt="" style="width:1.5em; height:3em;"srcset="{{this.picture}}">
+                    </td>
+                    <td>{{this.name}}</td>
+                    <td>
+                        <a href="/admin/edit-item/{{this._id}}" class="btn btn-success font01 mr-2">+</a>
+                        <a class="font01">1</a>
+
+                        <a href="/admin/delete-item/{{this._id}}" class="btn btn-info font01 ml-2"
+                            onclick="return confirm('Confirm Deletion for {{this.name}} ?')">-</a>
+                    </td>
+                    <td>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+

@@ -1,0 +1,37 @@
+<section class="">
+    {{!-- <div class="container mt-4 ">
+        <h1 class="glorius text-center">Add To Your Profile</h1>
+        <hr>
+    </div> --}}
+    <div class="container ">
+        <div class="row ">
+            <div class="col-6 mx-auto mt-2 ">
+                <h1 class="glorius text-center mt-4 white-text">Create An Account</h1>
+                <hr>
+                <div class=" bord m-auto">
+                    <form action="/signup" method="post" class="text-center pt-2" >
+                        <label for="name" class="form-text ">User Name</label>
+                        <input type="text" name="name" class="form-text form-area mx-auto text-center" required>
+
+                        <label for="email" class="form-text">Email</label>
+                        <input type="email" name="email" class="form-text form-area mx-auto text-center" style="width: 65%;" required>
+
+                        <label for="password" class="form-text">Password</label>
+                        <input type="password" name="password" class="form-text form-area mx-auto text-center" required>
+
+                        <input type="hidden" name="admin" value="false">
+
+                        {{!-- <label for="password" class="form-text">Confirm Password</label>
+                        <input type="text" name="conf-password" class="form-text form-area mx-auto text-center" required >
+                        <br> --}}
+
+                        <br>
+                        <button type="submit" class="font01 mx-auto btn-dark mb-3 ">SignUp</button><hr>
+                        <a href="/login" class="font01 mt-3 " style="">Already Have an Account ?</a> 
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+        </div><hr>
+    </div>
+</section>

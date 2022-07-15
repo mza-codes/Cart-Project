@@ -1,0 +1,52 @@
+<header style="z-index:1; width:100%" class="">
+    <nav class="navbar navbar-expand-lg navbar navbar-dark"
+        style="background: linear-gradient(rgb(12, 10, 10),rgb(114, 7, 72));">
+        <a class="navbar-brand voga" href="#">{{#if user}}{{user.name}}  [] Admin Panel {{else}} Admin Panel {{/if}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link voga" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link voga" href="/admin">All Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link voga" href="/cart">Watchlist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link voga" href="/help">Report a Problem</a>
+                </li>
+                <div class="dropdown voga mr-4">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{#if user}}
+                            {{user.name}}
+                        {{else}}
+                            Account
+                        {{/if}}
+                        </button>
+                        
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {{#if user}}
+                        <a class="dropdown-item" href="/">Home</a>
+                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                        {{else}}
+                        <a class="dropdown-item" href="/login">Login</a>
+                        <a class="dropdown-item" href="/signup">SignUp</a>
+                        <a class="dropdown-item" href="/">Home</a>
+                        <a class="dropdown-item" href="/admin">Admin</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </ul>
+
+        </div>
+    </nav>
+</header>
