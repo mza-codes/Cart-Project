@@ -1,0 +1,53 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <h1 class="glorius text-white m-auto pt-4 "> {{#if wishlist}}Your Wishlist 
+                {{else}}There's Nothing to show here! {{/if}} </h1>
+        </div><hr>
+        {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled Orders</span></a> --}}
+        {{#if wishlist}}
+        
+        {{#each wishlist}}
+        <div class="row">
+                 <div class="col mb-3" style="min-width: 24rem; border: 2px solid var(--text-main); border-radius: 15px;">
+                   
+                    <div class="float-left p-4 ">
+                    <img  src="/poster-images/{{this.product._id}}.png" class="p-3"
+                    style="max-width: 16rem; max-height: 25rem;" alt="" >
+                    </div>
+                    <div class=" text-cente mr-auto p-5">
+                    <h4 class="font01 text-white " style="font-weight: 600;">{{this.product.name}} </h4>
+                    <p class="font01 text-white p-1">{{this.product.description}} </p>
+                    <p class="font01 text-white p-2" style="font-weight: 600;">Wishlisted On: <br>{{this.wishdate}} </p>
+                    <p class="font01 text-white">Year: {{this.product.year}}</p>
+                    <p class="font01 text-white" style="font-weight: 900;">Cost: {{this.product.price}} /-</p>
+                    <p class="font01 text-white ">Payment Options: <br> COD or Online Payment</p>
+                    <p class="font01 text-white">Genre: <br> {{this.product.genre}}</p>
+                    <a href="/cancel"><button onclick="return confirm('This Item will be removed !')"
+                    class="float-right btn-danger font01">Cancel Order</button></a>
+                    {{!-- <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')"
+                    class="float-right orderinfobtn font01 m-2">Need Help </button></a> --}}
+                    </div>
+                    
+                    {{!-- {{else}}
+                    <div id="cancelled">
+                    <h4 class="glorius text-white "> Order Cancelled </h4>
+                    <p id="d1" class="font01 text-white"style="font-weight: 700;">On {{this.cancellationDate}} </p>
+                    <p class="font01 text-white" >Totalling Rs. <span style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
+                    <p class="font01 text-white">Order Status: <span class="badge badge-danger" style="font-size:  larger;"> CANCELLED!</span></p>
+                    </div> --}}
+                    {{!-- {{/if}} --}}
+            
+                </div>
+        </div>
+        {{/each}}
+    </div>
+        {{else}}
+            <div class="container-fluid">
+       
+        <div class="m-auto p-2 text-center">
+            <a class="btn btn-success font01 m-4" href="/">Shop Now !</a>
+        </div>
+    </div>
+        {{/if}}
+</section>

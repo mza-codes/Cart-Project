@@ -1,7 +1,14 @@
 <header style="z-index:1; width:100%" class="">
-    <nav class="navbar navbar-expand-lg navbar navbar-dark"
-        style="background: linear-gradient(rgb(12, 10, 10),rgb(114, 7, 72));">
-        <a class="navbar-brand voga" href="#">{{#if user}}{{user.name}}  [] Admin Panel {{else}} Admin Panel {{/if}}</a>
+    <nav class="navbar navbar-expand-lg navbar navbar-dark">
+        {{!-- NEW BTN THEME MODE --}}
+        <div class="toggle">
+            <input type="checkbox" id="theme" class="toggle-input" checked >
+            <label for="theme" class="toggle-label">
+                <img src="/images/moon.png" alt="" class="toggle-icon">
+            </label>
+        </div>
+        {{!-- END --}}
+        <a class="navbar-brand voga" href="/admin">{{#if user}}{{user.name}}  [] Admin Panel {{else}} Admin Panel {{/if}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -12,12 +19,25 @@
                 <li class="nav-item active">
                     <a class="nav-link voga" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-
+                <li class="nav-item active">
+                    <a class="nav-link voga" href="/cart">Cart <span class="badge badge-warning font01"
+                            id="cart-count" style="background-color: var(--badge-cart); color:var(--badge-text)"
+                            >{{user.cartCount}}</span></a>
+                </li>
+                {{#if cancelled}}
+                <li class="nav-item active">
+                    <a class="nav-link voga" href="#cancelled">Orders <span
+                            class="badge badge-primary font01">i</span></a>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link voga" href="/orders">Orders <span class="badge badge-warning font01"
+                            id="order-count" style="background-color: var(--badge-order); color: var(--badge-text);"
+                            >{{user.orderCount}}</span></a>
+                </li>
+                {{/if}}
                 <li class="nav-item">
                     <a class="nav-link voga" href="/admin">All Items</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link voga" href="/cart">Watchlist</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link voga" href="/help">Report a Problem</a>
@@ -37,6 +57,8 @@
                         <a class="dropdown-item" href="/">Home</a>
                         <a class="dropdown-item" href="/profile">Profile</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="/admin">Admin</a>
+
                         {{else}}
                         <a class="dropdown-item" href="/login">Login</a>
                         <a class="dropdown-item" href="/signup">SignUp</a>

@@ -3,22 +3,28 @@
         <h1 class="glorius text-center">Add To Your Profile</h1>
         <hr>
     </div> --}}
-    <div class="container ">
+    <div class="container">
         <div class="row ">
-            <div class="col-6 mx-auto mt-2 ">
+            <div class="col mx-auto mt-2 ">
                 <h1 class="glorius text-center mt-4 white-text">Create An Account</h1>
                 <hr>
-                <div class=" bord m-auto">
-                    <form action="/signup" method="post" class="text-center pt-2" >
-                        <label for="name" class="form-text ">User Name</label>
-                        <input type="text" name="name" class="form-text form-area mx-auto text-center" required>
-
-                        <label for="email" class="form-text">Email</label>
-                        <input type="email" name="email" class="form-text form-area mx-auto text-center" style="width: 65%;" required>
-
+                <div class=" bord m-auto ">
+                    <form action="/signup" method="post" class="text-center p-2" >
+                    <div class="p-2">
+                        <label for="name" class=" form-text ">User Name</label>
+                        <input type="text" name="name" class="form-text form-area mx-auto text-center"
+                        style="width: 75%;" required>
+                    </div>
+                    <div class="p-2">
+                        <label for="email" class=" form-text">Email</label>
+                        <input type="email" name="email" class="form-text form-area mx-auto text-center" 
+                        style="width: 65%;" required>
+                    </div>
+                    <div class="p-2">
                         <label for="password" class="form-text">Password</label>
-                        <input type="password" name="password" class="form-text form-area mx-auto text-center" required>
-
+                        <input type="password" name="password" class="form-text form-area mx-auto text-center" 
+                        style="width: 65%;" required>
+                    </div>
                         <input type="hidden" name="admin" value="false">
 
                         {{!-- <label for="password" class="form-text">Confirm Password</label>

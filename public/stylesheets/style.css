@@ -1,159 +1,370 @@
-.cart-item-resize{
+
+.cart-item-resize {
     width: 9em;
     height: 21em;
     contain: content;
 }
 
-.poster-cart{
+.text-black {
+    color: #000000 !important;
+}
+
+.badge-info {
+    background-color: bisque !important;
+    color: #000000 !important;
+}
+
+.bold {
+    font-weight: 650 !important;
+
+}
+
+.contain {
+    object-fit: contain;
+}
+
+.poster-cart {
     width: 100%;
     height: 13em;
 }
-.font-cart{
-    font-family:'Times New Roman', Times, serif;
+
+.font-cart {
+    font-family: 'Times New Roman', Times, serif;
     font-weight: 100;
 }
-.white-bg{
+
+.white-bg {
     background-color: rgb(126, 16, 16);
-    
+
     /* box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     border: 20px solid #872020;
     margin: 10px; */
 }
-.descriptionbox{
-    width: 70%;
-    box-sizing: border-box;
+
+.descriptionbox {
+    max-width: 70%;
+    border-radius: 1em; 
+    font-family: 'Times New Roman', Times, serif;
+    /* box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    border: 0.1rem solid #000000; 
-    border-radius: 1em;
-   
+    border: 0.1rem solid #000000;
+    */
+
 }
+
 .bord {
-    box-sizing: border-box;
+    /* box-sizing: border-box;
     -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    width: 90%;
+    -webkit-box-sizing: border-box; */
+    max-width: 25rem;
     /* height: 35em; */
-     border: 0.3em solid #000000; 
-    border-radius: 1em;
+    border: 2px solid #000000;
+    border-radius: 7px;
     background: #ffffff;
     /* margin: 10px; */
-  }
-.white-text{
-    color: white;
 }
-.form-text{
+
+.white-text {
+    color: var(--text-main);
+}
+
+.text-white{
+    color: var(--text-main);
+}
+
+.form-text {
     font-family: 'Times New Roman', Times, serif;
     color: rgb(0, 0, 0);
 }
-.form-area{
-    width: 55%;
-    height: 2rem;
+
+.form-area {
+    /* width: 55%; */
+    /* height: 2rem; */
     border-radius: 1em;
-    
+
 }
-.readreviewbtn{
-    background-color: rgb(79, 49, 0)!important ; 
+
+.readreviewbtn {
+    background-color: rgb(79, 49, 0) !important;
     border-radius: 1em;
     color: #ffffff;
     /* border: solid 0.2em rgb(0, 0, 0); */
-    
+
 }
-.addtobtn{
-    background-color:  rgb(79, 0, 0);
+
+.badge-custom {
+    background: linear-gradient(rgb(189, 1, 1), rgb(189, 0, 0));
+}
+
+.addtobtn {
+    background-color: rgb(79, 0, 0);
     color: rgb(255, 255, 255);
     border-radius: 1em;
 }
-.mybtn1{
-    background-color:  rgb(1, 0, 0);
+
+.ordercancelbtn {
+    background-color: rgb(192, 0, 0) !important;
+    color: rgb(255, 255, 255);
+    border-radius: 5px !important;
+    /* border: 2px solid rgb(8, 4, 4) !important; */
+    font-size: medium !important;
+}
+
+.orderinfobtn {
+    background-color: rgb(0, 134, 192) !important;
+    color: rgb(255, 255, 255);
+    border-radius: 5px !important;
+    /* border: 2px solid rgb(5, 2, 2) !important; */
+    font-size: medium !important;
+}
+
+.mybtn1 {
+    background-color: rgb(1, 0, 0);
     color: rgb(255, 255, 255);
     /* border-radius: 1em; */
 }
-.custom-file-label{
-    border-radius: 1.8em !important ;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 0.7em;
-   
-}
-.font0{
-    font-family:'Times New Roman', Times, serif;
-    font-weight: 900;
-}
-.valid-tooltip{
-    font-family: 'Times New Roman', Times, serif;
-}
-.font01{
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 100;
-}
-.font02{
-    font-family:'Times New Roman', Times, serif;
-    font-weight: 200;
-}
-.font03{
-    font-family:'Times New Roman', Times, serif;
-    font-weight: 100;
-}
-.card-bg{
-    background: radial-gradient(rgb(244, 236, 236),rgb(61, 61, 61));
-    /* background: radial-gradient(rgb(0, 0, 0),rgb(0, 0, 0));
-    color: rgb(134, 5, 5); */
-    
-    
-}
-.gd0hjg{
-    background: linear-gradient(rgb(114, 7, 7),rgb(45, 8, 10));
+
+.mybtn {
+    background-color: rgb(52, 0, 54) !important;
+    color: rgb(255, 255, 255) !important;
+    border-radius: 10px !important;
+    border: 2px solid rgb(255, 255, 255) !important;
 
 }
-body{
-    /* background: repeating-radial-gradient(rgb(72, 104, 10),rgb(0, 0, 0));  */
-    background: repeating-radial-gradient(rgb(114, 7, 72),rgb(0, 0, 0));
+
+.custom-file-label {
+    border-radius: 1.8em !important;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.7em;
+
 }
-.voga{
+
+.font0 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 900;
+}
+
+.valid-tooltip {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.font01 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 100;
+}
+
+.font02 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 200;
+}
+
+.font03 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 100;
+}
+
+.card-bg {
+    background: radial-gradient(rgb(244, 236, 236), rgb(61, 61, 61));
+    /* background: radial-gradient(rgb(0, 0, 0),rgb(0, 0, 0));
+    color: rgb(134, 5, 5); */
+
+
+}
+
+body {
+    /* background: repeating-radial-gradient(rgb(72, 104, 10),rgb(0, 0, 0));  */
+    /* background: repeating-radial-gradient(rgb(114, 7, 72), rgb(0, 0, 0)); */
+    /* background-color:#ffffff ; */
+    
+}
+
+.voga {
     font-family: 'EntezareZohoor2';
     font-weight: 300;
 }
-.glorius{
+
+.glorius {
     font-family: 'glorious';
 }
+
 @font-face {
     font-family: 'EntezareZohoor2';
     src: url('Wallington-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'glorious';
     src: url('GLORIOUS.otf');
     font-weight: normal;
     font-style: normal;
 }
-.search-engine{
+
+.search-engine {
     width: 6em;
     height: 1em;
 }
 
-.poster-resize{
-    
+.poster-resize {
     width: 100%;
     height: 26em;
 }
-.card-resize{
+
+.card-resize {
     width: 18em;
-    height: 40em;
+    /* height: 40em; */
     contain: content;
 }
-.overflow{
+
+.overflow {
     text-overflow: ellipsis;
-    white-space: nowrap; 
-    overflow: hidden; 
-   
-    
-    
+    white-space: nowrap;
+    overflow: hidden;
 }
-.wrapper{
+
+.wrapper {
     width: 50em;
     background: rgb(255, 255, 255);
 }
+
+.cardImg {
+    position: relative;
+}
+
+/* .poster {
+    position: relative;
+    background: linear-gradient(transparent 60%, rgba(0, 0, 0, 0.75));
+    width: 400px;
+    height: 260px;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px gray;
+} */
+
+.overlay {
+    mix-blend-mode: overlay;
+}
+
+
+.dark-text {
+    color: black !important;
+}
+
+.cart-badge {
+    background-color: rgb(6, 171, 0);
+}
+
+.order-badge {
+    background-color: rgb(255, 0, 0);
+}
+
+.border {
+    border: 2px solid black !important;
+    border-radius: 12px !important;
+}
+
+/* Starting With Themes */
+.toggle {
+    /* position: relative; */
+    width: 3rem;
+    height: 3rem;
+}
+
+.toggle-icon{
+    width: 2rem;
+    height: 2rem;
+    padding: 0.1rem;
+}
+
+.toggle-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-label:hover {
+    /* background-color: var(--main-bg); */
+    /* cursor: pointer; */
+    /* border: 3px solid var(--text-main); */
+    /* padding: 2rem; */
+    /* border-radius: 3rem; */
+    /* width: 6rem; */
+    /* background-color: var(--shadow); */
+    /* transition: all 0.3s ease; */
+}
+
+.toggle-label:active {
+    /* transform: scale(0.95); */
+}
+
+:root {
+    /* --main-bg: #76a6b0;
+    --text-bg: white;
+    --shadow: grey;
+    --text-sec: #507dbc;
+    --text-main: #000000 !important; */ 
+}
+
+.light {
+    /* --main-bg: #579b91;
+    --text-bg: black;
+    --shadow: #43505c;
+    --text-sec: #00255a;
+    --text-main: #0b1a2e; */
+    background: radial-gradient(rgb(255, 255, 255),rgb(255, 132, 0));
+    /* background: radial-gradient(rgb(224, 144, 255),rgb(255, 169, 39)) ; */
+    --text-main: #000000;
+    --badge-cart: rgb(5, 113, 1);
+    --badge-text: white;
+    --badge-order:rgb(187, 2, 2);
+    --badge-wishlist:rgb(59, 96, 0);
+    --text-secondary:rgb(255, 255, 255);
+}
+
+.nav-link{
+    color: var(--text-main) !important;
+}
+
+.navbar-brand{
+    color: var(--text-main) !important;
+}
+
+.dark {
+    /* --main-bg: #712c2c;
+    --text-bg: #94afd5;
+    --shadow: grey;
+    --text-sec: blue;
+    --text-main: #833463; */
+    background: radial-gradient(rgb(159, 0, 56),rgb(5, 11, 10));
+    --text-main: #ffffff;
+    --badge-cart: rgb(5, 113, 1);
+    --badge-text: white;
+    --badge-order:rgb(187, 2, 2);
+    --badge-wishlist:rgb(255, 145, 0);
+    --text-secondary:black;
+    
+    
+}
+
+.page {
+    /* position: relative; */
+    background-color: var(--main-bg);
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    align-items: center;
+    /* min-height: 100vh; */
+    /* box-sizing: border-box; */
+    /* font-family: "Open Sans", sans-serif; */
+    /* padding: 8px; */
+  }

@@ -58,7 +58,7 @@ router.post('/add-item', verifyAdmin, (req, res) => {
   }
 })
 
-router.get('/delete-item/:id', verifyAdmin, (req, res) => {
+router.get('/delete-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   let del = req.params.id
   //let image = req.files.poster
   console.log(del);
@@ -73,13 +73,13 @@ router.get('/delete-item/:id', verifyAdmin, (req, res) => {
     res.redirect('/admin/')
   })
 })
-router.get('/edit-item/:id', verifyAdmin, (req, res) => {
+router.get('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   //console.log(req.params.id)
   itemHelpers.getItem(req.params.id).then((item) => {
     res.render('admin/edit-item', { item,user,adminstat })
   })
 })
-router.post('/edit-item/:id', verifyAdmin, (req, res) => {
+router.post('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   itemHelpers.updateItem(req.params.id, req.body).then(() => {
     res.redirect('/admin')
     let id = req.params.id
@@ -91,12 +91,12 @@ router.post('/edit-item/:id', verifyAdmin, (req, res) => {
       } catch (err) {
         console.error(err)
       }
-    } else {
+    } else if(req.body.poster) {
       let image = req.files.poster
       image.mv('./public/poster-images/' + id + '.png')
+    }else{
+      
     }
-
-
   })
 })
 module.exports = router;

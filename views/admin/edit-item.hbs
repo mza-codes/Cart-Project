@@ -5,10 +5,10 @@
     </div> --}}
     <div class="container ">
         <div class="row ">
-            <div class="col-6 mx-auto mt-2 ">
+            <div class="col mx-auto mt-2 ">
                 <h1 class="glorius text-center mt-4 white-text">Edit Data</h1>
                 <hr>
-                <div class=" bord m-auto">
+                <div class="bord m-auto">
                     <form action="/admin/edit-item/{{item._id}}" method="post" class="text-center pt-3" enctype="multipart/form-data">
                         <label for="name" class="form-text ">Name</label>
                         <input type="text" name="name" value="{{item.name}}" class="form-text form-area mx-auto text-center" required>
@@ -18,11 +18,13 @@
 
                         <label for="genre" class="form-text ">Genre</label>
                         <input type="text" name="genre" value="{{item.genre}}" class="form-text form-area mx-auto text-center" required>
-                    
-                        
+
+                        <label for="price" class="form-text ">Price</label>
+                        <input type="number" name="price" value="{{item.price}}" class="form-text form-area mx-auto text-center" required>
+
                     {{#if item.picture}}
                         <img class="mt-2" src="{{item.picture}}" alt="" id="img-thumbnail" style="width:10em; height:15em;">
-                        <label for="" class="form-text">Picture By Url</label>
+                        <label for="picture" class="form-text">Picture By Url</label>
                         <input type="url" name="picture" value="" class="form-text form-area mx-auto text-center" onchange="viewImage(event)" >
                     {{else}}
                         <img class="mt-2" src="/poster-images/{{item._id}}.png" id="img-thumbnail" alt="" style="width:10em; height:15em;">

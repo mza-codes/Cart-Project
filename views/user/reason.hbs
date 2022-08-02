@@ -1,0 +1,57 @@
+{{!-- <section>
+    <div class="container">
+        <div class="row m-2">
+            <div class="col-12" style="background-color: antiquewhite;">
+                <h3 class="voga text-center p-3">Please Provide a Reason for Cancellation:</h3>
+                <form action="/cancel-order/{{orderId}}" method="get" class="text-center font01"
+                    style="background-color: aquamarine;">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section> --}}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <h3 class="voga text-center mt-3 p-3 text-white">Please Provide a Reason for Cancellation:</h3>
+                <hr>
+                <div class=" m-auto ">
+                    <form action="/cancel-order/" method="post" id="" class="text-center pt-2">
+                        <label for="COD" class="form-text text-white" style="font-weight: 900; font-size: larger;">Reason For
+                            Cancellation</label>
+                        <input type="radio" name="reason" class="m-2 p-3" required value="Similar Item Purchased">
+                        <label for="COD" class="font01 m-1 text-white">Ordered Similar Item</label>
+                        <br>
+                        <input type="radio" name="reason" class="m-2 p-3 " value="Shipping Delay">
+                        <label for="COD" class="font01 m-1 text-white">Delayed Delivery</label>
+                        <br>
+                        <input type="radio" name="reason" class="m-2 p-3 " value="Order Exists">
+                        <label for="COD" class="font01 m-1 text-white">Duplicate Order</label>
+                        <br>
+                        <input type="radio" name="reason" class="m-2  p-3" value="Expensive">
+                        <label for="COD" class="font01 m-1 text-white ">Expensive</label>
+                        <br>
+                        <hr>
+                        <label for="COD" class="font01 m-1 text-white" style="font-weight: 900; font-size: larger;">Description</label><br>
+                        <textarea type="radio" cols="26" name="otherReason" style="border-radius:20px ;" class="m-2 font01 text-center p-3" placeholder="Optional"></textarea>
+                        <input type="text" hidden name="userId" value="{{user._id}}">
+                        <input type="text" hidden name="orderId" value="{{orderId}}">
+                        <input type="text" hidden name="payment" value="{{order.payment}}">
+                        {{#each order.products}}
+                        <input type="text" hidden name="products" value="{{this.product}}">
+                        <input type="text" hidden name="proId" value="{{this.item}}">
+                        {{/each}}
+                        <input type="text" hidden name="totalCost" value="{{order.totalAmount}}">
+                        
+                        <hr>
+                        <button type="submit" class="font01 mx-auto btn-success mb-3 ">Submit</button><br>
+                        <hr>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

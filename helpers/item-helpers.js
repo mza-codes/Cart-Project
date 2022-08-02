@@ -35,6 +35,7 @@ module.exports = {
     },
     updateItem: (id, itemDetails) => {
         return new Promise((resolve, reject) => {
+            let cost = parseInt(itemDetails.price)
             if (itemDetails.picture) {
                 db.get().collection(values.ITEM_COLLECTION)
                     .updateOne({ _id: ObjectID(id) }, {
@@ -43,6 +44,7 @@ module.exports = {
                             year: itemDetails.year,
                             genre: itemDetails.genre,
                             description: itemDetails.description,
+                            price: cost,
                             picture: itemDetails.picture,
                         }
                     }).then((response) => {
@@ -55,6 +57,7 @@ module.exports = {
                             name: itemDetails.name,
                             year: itemDetails.year,
                             genre: itemDetails.genre,
+                            price: cost,
                             description: itemDetails.description,
                         }
                     }).then((response) => {

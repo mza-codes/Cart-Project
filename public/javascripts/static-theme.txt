@@ -1,0 +1,42 @@
+
+    $(".change").on("click", function () {
+        if ($("body").hasClass("dark")) {
+            $("body").removeClass("dark");
+            $("section").removeClass("dark");
+            $("p").removeClass("dark-text");
+            $("label").removeClass("dark-text");
+            $(".border-white").removeClass("border");
+            $("#selection").removeClass("dark-text");
+            $("h1").removeClass("dark-text");
+            $("h2").removeClass("dark-text");
+            $("h3").removeClass("dark-text");
+            $("h4").removeClass("dark-text");
+            $("h5").removeClass("dark-text");
+            $("h6").removeClass("dark-text");
+            $("a").removeClass("dark-text");
+            $("pre").removeClass("dark-text");
+            $("#cart-count").removeClass("cart-badge");
+            $("#order-count").removeClass("order-badge");
+            $(".change").text("OFF");
+        } else {
+            $("body").addClass("dark");
+            $("section").addClass("dark");
+            $("a").addClass("dark-text");
+            $("pre").addClass("dark-text");
+            $("section").addClass("dark-text");
+            $("p").addClass("dark-text");
+            $("label").addClass("dark-text");
+            $("#selection").addClass("dark-text");
+            $(".border-white").addClass("border");
+            $("hr").addClass("dark-text");
+            $("h1").addClass("dark-text");
+            $("h2").addClass("dark-text");
+            $("h3").addClass("dark-text");
+            $("h4").addClass("dark-text");
+            $("h5").addClass("dark-text");
+            $("h6").addClass("dark-text");
+            $("#cart-count").addClass("cart-badge");
+            $("#order-count").addClass("order-badge");
+            $(".change").text("ON");
+        }
+    });

@@ -3,26 +3,28 @@
         <h1 class="glorius text-center">Add To Your Profile</h1>
         <hr>
     </div> --}}
-    <div class="container ">
+    <div class="container-fluid ">
         <div class="row ">
-            <div class="col-6 mx-auto mt-2 ">
+            <div class="col-12 mx-auto mt-2 ">
                 <h1 class="glorius text-center mt-4 white-text">LogIn</h1>
                 <hr class="white-text">
-                <div class=" bord m-auto">
+                <div class=" bord p-3 m-auto">
                     <form action="/login" method="post" class="text-center pt-2" >
                         
-                        <label for="email" class="form-text">Email</label>
-                        <input type="email" name="email" class="form-text form-area mx-auto text-center" style="" required>
+                        <label for="email" class="form-text p-1">Email</label>
+                        <input type="email" name="email" class="form-text form-area mx-auto text-center"
+                         style="width: 75%;" required>
 
-                        <label for="password" class="form-text ">Password</label>
-                        <input type="password" name="password" class="form-text form-area mx-auto text-center" required>
+                        <label for="password" class="form-text p-1">Password</label>
+                        <input type="password" name="password" class="form-text form-area mx-auto text-center"
+                        style="width: 65%;" required>
                         <br>
-                        <button type="submit" class="font01 mx-auto btn-dark mb-3 ">LogIn</button><br>
+                        <button type="submit" class="font01 mx-auto btn-dark mb-3 p-1">LogIn</button><br>
                         {{#if logInErr}}
                             <p class="font01" style="color:red">{{logInErr}}</p>
                         {{/if}}
                         <hr>
-                        <a href="/signup" class="font01 mt-3 " style="">Create New Account ?</a> 
+                        <a href="/signup" class="font01 mt-3" style="">Create New Account ?</a> 
                         <br><br>
                     
                     </form>

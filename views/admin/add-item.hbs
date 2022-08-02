@@ -4,20 +4,27 @@
         <hr>
     </div> --}}
     <div class="container ">
-        <div class="row ">
-            <div class="col-6 mx-auto mt-2 ">
-                <h1 class="glorius text-center mt-4 white-text">Add To Your Profile</h1>
+        <div class="row">
+            <div class="col mx-auto mt-2 ">
+                <h1 class="glorius text-center mt-4 white-text">Add A Product</h1>
                 <hr>
-                <div class=" bord m-auto">
+                <div class="bord m-auto p-2">
                     <form action="/admin/add-item" method="post" class="text-center pt-3" enctype="multipart/form-data">
                         <label for="name" class="form-text ">Name</label>
-                        <input type="text" name="name" class="form-text form-area mx-auto text-center" required>
+                        <input type="text" name="name" class="form-text form-area mx-auto text-center"
+                        placeholder="Title" required>
 
+                        <label for="genre" class="form-text ">Price</label>
+                        <input type="number" name="price" class="form-text form-area mx-auto text-center"
+                        placeholder="Cost" style="width: 30%;" required>
+                        
                         <label for="year" class="form-text">Year</label>
-                        <input type="number" name="year" class="form-text form-area mx-auto text-center" style="width: 25%;" required>
+                        <input type="number" name="year" class="form-text form-area mx-auto text-center" 
+                        placeholder="Year" style="width: 25%;" required>
 
                         <label for="genre" class="form-text ">Genre</label>
-                        <input type="text" name="genre" class="form-text form-area mx-auto text-center" required>
+                        <input type="text" name="genre" class="form-text form-area mx-auto text-center"
+                        placeholder="Genre" required>
 
                         
 
@@ -29,10 +36,11 @@
                         </div>
                         
                         <label for="" class="form-text">Picture By Url</label>
-                        <input type="text" name="picture" class="form-text form-area mx-auto text-center" >
+                        <input type="text" name="picture" placeholder="(optional)" class="form-text form-area mx-auto text-center" >
                         
                         <label for="description" class="form-text">Description</label>
-                        <textarea name="description" id="" cols="" rows="5" class="descriptionbox text-center  " placeholder="Enter a  Description" style="font-family: 'Times New Roman', Times, serif;"></textarea><br>
+                        <textarea name="description"rows="5" class="descriptionbox text-center"style="border: 2px solid black;" placeholder="Enter a Description"></textarea>
+                        <br>
                         <hr>
                         <button type="submit" class="font01 mx-auto btn-dark mb-3 ">Submit</button>
                     

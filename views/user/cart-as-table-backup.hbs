@@ -1,0 +1,93 @@
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="voga white-text m-auto pt-5 pb-1 text-center">{{#if msg}}{{msg}} {{else}} Your Cart {{/if}}
+                </h1>
+            </div>
+        </div>
+        {{#if msg}}
+            <div class="row"><a href="/" class="m-auto p-3"><button class="btn btn-info text-center mx-auto font01">Shop Now !</button></a>
+            </div>
+        {{else}}
+        <table class=" table m-auto table-striped font01 text-white align-items-center text-center pt-4" >
+            <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody >
+                {{#each products}}
+                <tr>
+                    <td>
+                        <img src="/poster-images/{{this.product._id}}.png" alt="" style="width:1.5em; height:3em;"
+                            srcset="{{this.product.picture}}">
+                    </td>
+                    <td>{{this.product.name}}</td>
+                    <td>Rs.{{this.product.price}}/- </td>
+                    <td class="p-4">
+                        <button onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)"
+                            class="btn btn-success font01 ">+</button>
+                        <span class="badge badge-info font01" id="{{this.product._id}}">{{this.quantity}}</span>
+                        <button onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)"
+                            class="btn btn-info font01 ">-</button>
+                    </td>
+
+                    <td>
+                        <a onclick="delFromCart('{{this._id}}','{{this.product._id}}')"
+                            class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+                {{/each}}
+                
+            </tbody>
+        </table>
+        <hr>
+        <div class="row ">
+            <div class="col-12 ">
+                <h4 class="font01 text-white float-right p-4">Total:<span class="bold">Rs. <span id="cart-total">{{total}}</span>.00/-</span></h4>
+                <a href="/place-order"><button class="btn mybtn float-right m-2 p-3 font01">Checkout</button></a>
+        </div>
+        
+    </div>
+    <hr class="p-3">
+</section>
+{{/if}}
+
+<script>
+    function changeQty(cartId, proId, userId ,count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+        count = parseInt(count)
+        console.log('printing usert')
+        console.log(userId)
+        $.ajax({
+            url: '/changeQty',
+            data: {
+                user:userId,
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                console.log(response)
+                if (response.removed) {
+                    alert('Item removed from cart !')
+                    location.reload()
+                } else {
+                    console.log(response)
+                    document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById('cart-total').innerHTML = response.total
+
+                }
+
+            }
+        })
+    }
+
+</script>
