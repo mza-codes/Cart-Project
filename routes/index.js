@@ -65,6 +65,8 @@ router.get('/signup', (req, res) => {
   }
 })
 router.post('/signup', (req, res) => {
+  console.log('REQ.body logging',req.body);
+  req.body.admin = false
   userHelpers.recordUser(req.body).then((response) => {
     req.session.loggedIn = true
     req.session.user = response
@@ -105,18 +107,6 @@ router.get('/add-to-cart/:id([0-9a-fA-F]{24})', (req, res) => {
   userHelpers.addToCart(req.params.id, req.session.user._id).then(() => {
     res.json({ status: true })
   })
-})
-
-router.get('/add-to-wishlist/:id([0-9a-fA-F]{24})',async(req,res)=>{
-  console.log('LOGGING STEP 1')
-  proId = req.params.id
-  userId = req.session.user._id
-  await userHelpers.addToWishList(proId,userId).then((response)=>{
-    console.log('LOGGING RESPONSE FROM 112',response);
-    res.json(response)
-
-  })
-  console.log('COMPLETE');
 })
 
 router.post('/changeQty', (req, res, next) => {
@@ -184,4 +174,23 @@ router.get('/wishlist',verifyLogin,async(req,res)=>{
   res.render('user/wishlist',{user,wishlist})
 })
 
+router.get('/add-to-wishlist/:id([0-9a-fA-F]{24})',verifyLogin,async(req,res)=>{
+  console.log('LOGGING STEP 1')
+  proId = req.params.id
+  userId = req.session.user._id
+  await userHelpers.addToWishList(proId,userId).then((response)=>{
+    console.log('LOGGING RESPONSE FROM 112',response);
+    res.json(response)
+  })
+  console.log('COMPLETE');
+})
+
+router.get('/delfromwishlist/:id([0-9a-fA-F]{24})',verifyLogin,async(req,res)=>{
+  proId = req.params.id
+  userId = req.session.user._id
+  stat = await userHelpers.removeFromWishlist(proId,userId)
+    res.json(stat)
+})
+
+// ---------------------End----------------------------------//
 module.exports = router;

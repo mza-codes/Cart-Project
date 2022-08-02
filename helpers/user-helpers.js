@@ -25,9 +25,9 @@ module.exports = {
                 bcrypt.compare(loginData.password, dbuser.password).then((status) => {
                     if (status) {
                         console.log('Passwords Matched');
-                        if (dbuser.admin == "true") {
+                        if (dbuser.admin === true) {
                             admin = true
-                        } else if (dbuser.admin == "false") {
+                        } else if (dbuser.admin === false) {
                             admin = false
                         } else {
                             admin = false
@@ -97,16 +97,17 @@ module.exports = {
         let item = {
             item: objectId(itemId),
             wishdate: new Date().toLocaleString()
-        }                                           // 'item' will be the field name in 'products' db
-
+        }
         return new Promise(async (resolve, reject) => {
             let userWishlist = await db.get().collection(values.WISHLIST_COLLECTION).findOne({ user: objectId(userId) })
             console.log('LOGGING USERWISHLIST', userWishlist);
             if (userWishlist) {
                 let itemExist = userWishlist.products.findIndex(product => product.item == itemId)
                 console.log('LOGGING ITEMEXIST VALUE', itemExist);
+
                 if (itemExist != -1) {
                     resolve({ status: false })
+
                 } else {
                     db.get().collection(values.WISHLIST_COLLECTION).updateOne({ user: objectId(userId) },
                         {
@@ -119,7 +120,7 @@ module.exports = {
             } else {
                 let wishlist = {
                     user: objectId(userId),
-                    products: [item],         // here 'products' is the field name in cart database
+                    products: [item],         // here 'products' is the field name in wishlist database
                 }
                 db.get().collection(values.WISHLIST_COLLECTION).insertOne(wishlist).then((response) => {
                     resolve({ status: true })
@@ -293,7 +294,8 @@ module.exports = {
     },
     getOrder: (userId) => {
         return new Promise(async (resolve, reject) => {
-            let orders = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId) }, { sort: [['date', 'desc']] }).toArray()
+            let orders = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId) },
+                { sort: [['date', 'desc']] }).toArray()
             // console.log('LOGGING ORDERS',orders);
             orders.sort((a, b) => {
                 return b.orderStatus - a.orderStatus
@@ -373,9 +375,9 @@ module.exports = {
             return null
         }
     },
-    getWishlistProducts:async (userId) =>{
+    getWishlistProducts: async (userId) => {
         return new Promise(async (resolve, reject) => {
-            let wishlistItems = await db.get().collection(values.WISHLIST_COLLECTION).aggregate([
+            wishlistItems = await db.get().collection(values.WISHLIST_COLLECTION).aggregate([
                 {
                     $match: { user: objectId(userId) }
                 },
@@ -385,7 +387,7 @@ module.exports = {
                 {
                     $project: {
                         item: '$products.item',
-                        wishdate:'$products.wishdate'
+                        wishdate: '$products.wishdate'
                     }
                 },
                 {
@@ -398,15 +400,25 @@ module.exports = {
                 },
                 {
                     $project: {
-                        item: 1,wishdate:1, product: { $arrayElemAt: ['$product', 0] }
+                        item: 1, wishdate: 1, product: { $arrayElemAt: ['$product', 0] }
                     }
+                },
+                { 
+                    $sort: { wishdate: -1 } 
                 }
+
             ]).toArray()
-            wishlistItems.sort((a, b) => {
-                return b.wishdate - a.wishdate
-            })
             resolve(wishlistItems)
         })
+    },
+    removeFromWishlist: (proId, userId) => {
+        db.get().collection(values.WISHLIST_COLLECTION)
+            .updateOne({ user: objectId(userId) },
+                {
+                    $pull: { products: { item: objectId(proId) } }
+                }
+            )
+        return true
     }
 
 

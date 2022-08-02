@@ -31,6 +31,25 @@ function addToWishlist(proId) {
     })
 }
 
+function delFromWishlist(proId) {
+    $.ajax({
+        url: '/delfromwishlist/' + proId,
+        method: 'get',
+        success: (response) => {
+            if (response) {
+                let count = $('#wishlist-count').html()
+                count = parseInt(count) - 1
+                $('#wishlist-count').html(count)
+                alert('Item Removed')
+                location.reload()
+            }else{
+                alert('Failed Task !')
+            }
+            
+        }
+    })
+}
+
 function delFromCart(cartId, proId) {
     let quantity = 1
     let count = -1              // here i use the remove if qty is 1 action by manually setting desired values !
