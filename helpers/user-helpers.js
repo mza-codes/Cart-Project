@@ -297,9 +297,25 @@ module.exports = {
             let orders = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId) },
                 { sort: [['date', 'desc']] }).toArray()
             // console.log('LOGGING ORDERS',orders);
+            let cancelled = false
+            for (let index = 0; index < orders.length; index++) {
+                cancelled = orders[index].cancellationDate;
+                console.log('LOGGING EVERYTIME LOOP WORKS',cancelled);
+                if (cancelled != undefined) {
+                  cancelled = true
+                  console.log('LOGGING FROM 305 true');
+                  break
+                  console.log('TOP;LOGGING%%5');
+                } else {
+                    console.log('log from false else state 309');
+                  cancelled = false
+                }
+              }
+              console.log('LOGGING CANCELLED VALUE OUTSIDE FORLOOP',cancelled)
             orders.sort((a, b) => {
                 return b.orderStatus - a.orderStatus
             })
+            orders.cancelled = cancelled
             resolve(orders)
         })
     },
@@ -324,22 +340,20 @@ module.exports = {
     },
     getOrderCount: (userId) => {
         return new Promise(async (resolve, reject) => {
-            let count = 0
+            let count = null
             let order = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId), orderStatus: true }).toArray()
 
-            if (order) {
-                console.log('logging cart from ORDERCOUNT Count true state, LOGGING COUNT NEXT');
+            if (order != 0) {
                 count = order.length
-                console.log(count);
+                console.log('LOG FROM ORDER TRUE STATE',count);
                 resolve(count)
             } else {
-                console.log('logging ORDERCOUNT false (else) state');
-                count = null
-                resolve(count)
+                // count = null
+                resolve(null)
             }
-
         })
     },
+    
     cancelOrder: (orderId, cancelled) => {
         return new Promise((resolve, reject) => {
             console.log('LOGGING cancelled values', cancelled);

@@ -6,7 +6,7 @@
         {{!-- NEW BTN THEME MODE --}}
 
         <div class="toggle">
-            <input type="checkbox" id="theme" class="toggle-input" checked >
+            <input type="checkbox" id="theme" class="toggle-input" checked>
             <label for="theme" class="toggle-label">
                 <img src="/images/moon.png" alt="" class="toggle-icon">
             </label>
@@ -23,24 +23,42 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link voga" href="/">Home <span class="badge badge-custom font01"
-                    style="color: white;">New</span> <span
-                            class="sr-only">(current)</span></a>
+                            style="color: white;">New</span> <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link voga" href="/cart">Cart <span class="badge badge-warning font01"
-                            id="cart-count" style="background-color: var(--badge-cart); color:var(--badge-text)"
-                            >{{user.cartCount}}</span></a>
+                    <a class="nav-link popup voga" onmouseenter="myFunction()" href="/cart">Cart
+                        {{#if user.cartItems}}
+                        <span class="popuptext" id="myPopup">
+                            <div class="col ">
+                                {{#each user.cartItems}}
+                                <hr>
+                                <div class=" popup-item">
+                                    <p class="badge font01 text-white">{{this.product.name}} <br> Quantity:
+                                        {{this.quantity}}</p>
+
+                                    <div class="float-right">
+                                        <img src="/poster-images/{{this.product._id}}.png" alt=""
+                                            style="width:1.5em; height:3em;" srcset="{{this.product.picture}}">
+                                    </div>
+                                </div>
+                                {{/each}}
+                                <hr>
+                            </div>
+                        </span>
+                        {{/if}}
+                        <span class="badge badge-warning font01" id="cart-count"
+                            style="background-color: var(--badge-cart); color:var(--badge-text)">{{user.cartCount}}</span>
+                    </a>
                 </li>
                 {{#if cancelled}}
                 <li class="nav-item active">
                     <a class="nav-link voga" href="#cancelled">Orders <span
-                    style="background-color: var(--badge-order);" class="badge badge-danger font01">x</span></a>
+                            style="background-color: var(--badge-order);" class="badge badge-danger font01">x</span></a>
                 </li>
                 {{else}}
                 <li class="nav-item">
-                    <a class="nav-link voga" href="/orders">Orders <span class="badge badge-warning font01"
-                            id="order-count" style="background-color: var(--badge-order); color: var(--badge-text);"
-                            >{{user.orderCount}}</span></a>
+                    <a class="nav-link voga" href="/orders">Orders <span class="badge badge-warning font01" id="order-count"
+                     style="background-color: var(--badge-order); color: var(--badge-text);">{{user.orderCount}}</span></a>
                 </li>
                 {{/if}}
                 <li class="nav-item">
@@ -48,8 +66,8 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link voga" href="/wishlist">Wishlist <span class="badge badge-warning font01"
-                            id="wishlist-count" style="background-color: var(--badge-wishlist); color:var(--text-secondary)"
-                            >{{user.wishlistCount}}</span></a>
+                            id="wishlist-count"
+                            style="background-color: var(--badge-wishlist); color:var(--text-secondary)">{{user.wishlistCount}}</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link voga" href="/help">Report a Problem</a>

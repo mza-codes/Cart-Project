@@ -1,0 +1,42 @@
+<section class="">
+    <div class="container align-items-center ">
+        <div class="row">
+            <h1 class="glorius white-text mx-auto">All Items</h1>
+        </div>
+        
+        <div class=" text-center">
+            <a href="/admin/add-item" class="badge mt-3 mb-3 font01" 
+            style="background-color: var(--badge-order); color:var(--badge-text)" >Add Item</a>
+        </div>
+        <hr >
+        {{#each products}}
+        <div class="row" >
+            <div class="col-12 text-center mx-auto p-3" style="border-bottom: 2px solid var(--text-main);;max-width: 56rem;" >
+                
+                <div class="float-right">
+                <img src="/poster-images/{{this._id}}.png" alt="" style="width:1.5em; height:3em;">
+                </div>
+
+                <p class="font01 text-white text-center" style="font-weight: 700;">{{this.name}} <br> Rs.{{this.price}}/-</p>
+                
+                <p class="font01 text-white float-left p-3  ">
+                    <a href="/admin/edit-item/{{this._id}}" class="btn btn-success font01">Edit</a></p>
+                <p class="font01 text-white float-right p-3 ">
+                    <a href="/admin/delete-item/{{this._id}}" class="btn btn-danger font01"
+                            onclick="return confirm('Confirm Deletion for {{this.name}} ?')">Delete</a>
+                </p>
+                <p class="font01 text-white p-2">{{this.genre}} <br> Year: {{this.year}}</p>
+                {{!-- <p class="font01 text-white p-2">Year: {{this.year}}</p> --}}
+                <p class="font01 text-white p " >{{this.description}}</p>
+                    
+            </div>
+        </div>
+        {{/each}}
+        
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

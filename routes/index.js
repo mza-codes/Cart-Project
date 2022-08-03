@@ -4,18 +4,25 @@ var itemHelpers = require('../helpers/item-helpers')
 const userHelpers = require('../helpers/user-helpers')
 let adminStatus = false
 let cartCount = null
-let orderCount = null
-const verifyLogin = async(req, res, next) => {
+// let orderCount = null
+const verifyLogin = async (req, res, next) => {
   if (req.session.loggedIn) {
     user = req.session.user
     adminstat = req.session.user.admin
-    let cartCount = await userHelpers.getCartCount(req.session.user._id)
-    let orderCount = await userHelpers.getOrderCount(req.session.user._id)
+    let cartCount = await userHelpers.getCartCount(user._id)
+    let orderCount = await userHelpers.getOrderCount(user._id)
     let wishlistCount = await userHelpers.getWishlistCount(user._id)
     user.wishlistCount = wishlistCount
     user.cartCount = cartCount
     user.orderCount = orderCount
-    console.log('up prinitning cartCountlogging USER from MAIN',user);
+    if (user.cartCount) {
+      cartItems = await userHelpers.getCart(req.session.user._id)
+      user.cartItems = cartItems
+    } else {
+      user.cartItems = null
+    }
+    
+    console.log('USER from MAIN', user);
     next()
   } else {
     res.redirect('/login')
@@ -33,16 +40,22 @@ router.get('/', async function (req, res, next) {
     user.cartCount = await userHelpers.getCartCount(req.session.user._id)
     user.orderCount = await userHelpers.getOrderCount(req.session.user._id)
     user.wishlistCount = await userHelpers.getWishlistCount(user._id)
+    user.cartItems = await userHelpers.getCart(req.session.user._id)
+    // if(user.cartCount){
+    //   cartItems = await userHelpers.getCart(req.session.user._id)
+    // }else{
+    //   cartItems = null
+    // }
     itemHelpers.getAllItems().then((products) => {
       console.log(user);
-      res.render('index', { title: 'Life - Your Journey', products, user, adminstat});
+      res.render('index', { title: 'Life - Your Journey', products, user, adminstat });
     })
-  }else{
-  itemHelpers.getAllItems().then((products) => {
-    console.log(user);
-    res.render('index', { title: 'Life - Your Journey', products, user, adminstat});
-  })
-}
+  } else {
+    itemHelpers.getAllItems().then((products) => {
+      console.log(user);
+      res.render('index', { title: 'Life - Your Journey', products, user, adminstat });
+    })
+  }
 });
 
 router.get('/login', (req, res) => {
@@ -65,7 +78,7 @@ router.get('/signup', (req, res) => {
   }
 })
 router.post('/signup', (req, res) => {
-  console.log('REQ.body logging',req.body);
+  console.log('REQ.body logging', req.body);
   req.body.admin = false
   userHelpers.recordUser(req.body).then((response) => {
     req.session.loggedIn = true
@@ -95,10 +108,10 @@ router.get('/cart', verifyLogin, async (req, res) => {
   let total = await userHelpers.getTotal(req.session.user._id)
   // orderCount = await userHelpers.getOrderCount(req.session.user._id)
   if (req.session.user.cartCount) {
-    res.render('user/cart', { user, adminstat, products,total })
+    res.render('user/cart', { user, products, total })
   } else {
     let msg = 'Your Cart is Empty'
-    res.render('user/cart', { user, adminstat, products, cartCount, msg ,orderCount})
+    res.render('user/cart', { user, products,msg })
   }
 })
 
@@ -123,7 +136,7 @@ router.get('/place-order', verifyLogin, async (req, res) => {  //add this option
   deliveryDetails = await userHelpers.getOrder(req.session.user._id)
   address = deliveryDetails[0]
   date = new Date().toLocaleString()
-  res.render('user/order-form', { user: req.session.user, total, date,address })
+  res.render('user/order-form', { user: req.session.user, total, date, address })
 })
 
 router.post('/place-order', async (req, res) => {
@@ -131,65 +144,66 @@ router.post('/place-order', async (req, res) => {
   let cart = await userHelpers.getCart(req.body.userId)
   let totalAmount = await userHelpers.getTotal(req.body.userId)
   userHelpers.createOrder(req.body, cart, totalAmount).then((response) => {
-    res.render('user/order-status',{user:req.session.user})
+    res.render('user/order-status', { user: req.session.user })
   })
 
 })
 
 router.get('/orders', verifyLogin, async (req, res) => {
+  let cancelled = false
   order = await userHelpers.getOrder(req.session.user._id)
-  // orderCount = await userHelpers.getOrderCount(req.session.user._id)
-  // cartCount = await userHelpers.getCartCount(req.session.user._id)
-  let cancelled=true
-  res.render('user/view-orders',{user:req.session.user,order,cancelled})
+  cancelled = order.cancelled 
+  console.log('LOGGING ORDER.CANCELLED',order.cancelled);
+  
+  res.render('user/view-orders', { user: req.session.user, order, cancelled })
 })
 
-router.get('/view-order-details/:id([0-9a-fA-F]{24})',verifyLogin,async(req,res)=>{
+router.get('/view-order-details/:id([0-9a-fA-F]{24})', verifyLogin, async (req, res) => {
   // res.send(req.params)
-  let orderProducts= await userHelpers.getOrderProducts(req.params.id)
-  console.log('LOGGING ORDERPRODUCTS FROM INDEX.JS',orderProducts);
+  let orderProducts = await userHelpers.getOrderProducts(req.params.id)
+  console.log('LOGGING ORDERPRODUCTS FROM INDEX.JS', orderProducts);
   // let orderCount = await userHelpers.getOrderCount(req.session.user._id)
-  let orderStatus= await userHelpers.getOrderStatus(req.params.id)
-  res.render('user/order-details',{user:req.session.user,orderProducts,orderStatus})
+  let orderStatus = await userHelpers.getOrderStatus(req.params.id)
+  res.render('user/order-details', { user: req.session.user, orderProducts, orderStatus })
 })
 
-router.post('/cancel-order/',verifyLogin,async(req,res)=>{
-  await userHelpers.cancelOrder(orderId,req.body)
+router.post('/cancel-order/', verifyLogin, async (req, res) => {
+  await userHelpers.cancelOrder(orderId, req.body)
   console.log('LOGGING REQ.BODY');
   console.log(req.body);
   res.redirect('/orders')
 })
 
-router.get('/cancel-form/:id([0-9a-fA-F]{24})',verifyLogin,async(req,res)=>{
-  orderId=req.params.id
+router.get('/cancel-form/:id([0-9a-fA-F]{24})', verifyLogin, async (req, res) => {
+  orderId = req.params.id
   order = await userHelpers.getOrderStatus(orderId)
-  console.log('LOGGING ORDER ',order);
-  res.render('user/reason',{user:req.session.user,orderId,order})
+  console.log('LOGGING ORDER ', order);
+  res.render('user/reason', { user: req.session.user, orderId, order })
 })
 
-router.get('/wishlist',verifyLogin,async(req,res)=>{
+router.get('/wishlist', verifyLogin, async (req, res) => {
   user = req.session.user
   wishlist = await userHelpers.getWishlistProducts(user._id)
-  console.log('LOGGING WISHLIST AGGREGATION',wishlist);
-  res.render('user/wishlist',{user,wishlist})
+  console.log('LOGGING WISHLIST AGGREGATION', wishlist);
+  res.render('user/wishlist', { user, wishlist })
 })
 
-router.get('/add-to-wishlist/:id([0-9a-fA-F]{24})',verifyLogin,async(req,res)=>{
+router.get('/add-to-wishlist/:id([0-9a-fA-F]{24})', verifyLogin, async (req, res) => {
   console.log('LOGGING STEP 1')
   proId = req.params.id
   userId = req.session.user._id
-  await userHelpers.addToWishList(proId,userId).then((response)=>{
-    console.log('LOGGING RESPONSE FROM 112',response);
+  await userHelpers.addToWishList(proId, userId).then((response) => {
+    console.log('LOGGING RESPONSE FROM 112', response);
     res.json(response)
   })
   console.log('COMPLETE');
 })
 
-router.get('/delfromwishlist/:id([0-9a-fA-F]{24})',verifyLogin,async(req,res)=>{
+router.get('/delfromwishlist/:id([0-9a-fA-F]{24})', verifyLogin, async (req, res) => {
   proId = req.params.id
   userId = req.session.user._id
-  stat = await userHelpers.removeFromWishlist(proId,userId)
-    res.json(stat)
+  stat = await userHelpers.removeFromWishlist(proId, userId)
+  res.json(stat)
 })
 
 // ---------------------End----------------------------------//

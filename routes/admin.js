@@ -30,7 +30,7 @@ router.get('/', verifyAdmin, function (req, res) {
   console.log('printing req sess loggedin from /admin');
   console.log(req.session.loggedIn);
   itemHelpers.getAllItems().then((products) => {
-    res.render('admin/view-items', { products, user,adminstat })
+    res.render('admin/view-items0', { products, user,adminstat })
   })
 });
 

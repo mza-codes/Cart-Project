@@ -15,16 +15,20 @@
         {{else}}
         {{#each products}}
         <div class="row" >
-            <div class="col-12 text-center mx-auto p-1" style="max-width: 36rem; border-botom:1px solid white;">
+            <div class="col-12 text-center mx-auto ml-2 mr-2 " style="max-width: 36rem; border-botom:1px solid white;">
                 <hr style="border: 1px solid white;">
                 <div class="float-right">
                 <img src="/poster-images/{{this.product._id}}.png" alt="" style="width:1.5em; height:3em;"
                     srcset="{{this.product.picture}}">
                 </div>
+                <div class="float-left">
+                    <p class="font-white font01 text-white float-left" 
+                        style="margin-left: 30%; margin-top: 40%;">Quantity</p>
+                </div>
 
                 <p class="font01 text-white" style="font-weight: 700;">{{this.product.name}} <br> Rs.{{this.product.price}}/- </p>
                 {{!-- <p class="font01 text-white " style="font-weight: 700;">Rs.{{this.product.price}}/- </p> --}}
-                <p class="font01 text-white float-left ">
+                <p class="font01 text-white float-left "> 
                     <button onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)"
                         class="btn btn-success font01 ">+</button>
                     <span class="badge badge-info font01" id="{{this.product._id}}">{{this.quantity}}</span>

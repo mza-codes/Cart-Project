@@ -1,0 +1,2 @@
+# add file name to exclude while uploading to github , mandatory for API Keys
+# format: .env  --excludes uploading .env file in source
