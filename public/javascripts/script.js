@@ -77,8 +77,7 @@ function delFromCart(cartId, proId) {
 }
 
 // When the user clicks on div, open the popup
-function myFunction() {
+function miniCart() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
   }
-

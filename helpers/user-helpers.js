@@ -358,6 +358,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             console.log('LOGGING cancelled values', cancelled);
             let cancelledOrders = {
+                orderDate:cancelled.orderDate,
                 reason: cancelled.reason,
                 otherReason: cancelled.otherReason,
                 userId: cancelled.userId,
@@ -368,14 +369,7 @@ module.exports = {
                 productsId: cancelled.proId,
                 dateCancelled: new Date().toLocaleString()
             }
-            db.get().collection(values.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) },
-                {
-                    $set: {
-                        orderStatus: false,
-                        cancellationDate: new Date().toLocaleString()
-                    }
-                }
-            )
+            db.get().collection(values.ORDER_COLLECTION).deleteOne({ _id: objectId(orderId) })
             db.get().collection(values.CANCELLED_ORDERS).insertOne(cancelledOrders)
             resolve()
         })

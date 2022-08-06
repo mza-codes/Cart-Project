@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var itemHelpers = require('../helpers/item-helpers')
-const fs = require('fs')
+const fs = require('fs');
 // let adminStatus = false
 
 const verifyAdmin = (req, res, next) => {
@@ -99,4 +99,49 @@ router.post('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
     }
   })
 })
+router.get('/users-list',verifyAdmin,async(req,res)=>{
+  let webusers = await itemHelpers.getWebUsers()
+  user=req.session.user
+  console.log('LOGGING USER',user);
+  if(user.superAdmin){
+    superUserMode = true
+  res.render('admin/view-webusers',{webusers,user,superUserMode})
+  }else{
+    let message = "You're not a SuperAdmin"
+    res.render('admin/view-webusers',{message,user})
+  }
+  console.log('LOGGINGIFSDVSZFHFSHB',webusers);
+})
+router.get('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
+  //console.log(req.params.id)
+  itemHelpers.getUser(req.params.id).then((webuser) => {
+    res.render('admin/edit-user', { webuser,user })
+  })
+})
+router.post('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
+  console.log('LOGGING REQ.BODY',req.body);
+  if(req.body.admin === 'true'){
+    req.body.admin = true
+  }else{
+    req.body.admin = false
+  }
+  console.log('LOGGING REQ.BODY.ADMIN AFTER IFF',req.body);
+  itemHelpers.updateUser(req.params.id, req.body).then((stat) => {
+    console.log('LOGGING STAT FROM 123GGSDA',stat);
+    if(stat){
+      res.redirect('/admin/users-list')
+    }else{
+      res.send('failure')
+    }
+  })
+})
+router.get('/delete-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
+  let userId = req.params.id
+  itemHelpers.delUser(userId).then((response) => {
+    console.log('loggingfdss sdf response',response);
+    res.redirect('/admin')
+  })
+})
+
+
 module.exports = router;

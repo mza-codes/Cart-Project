@@ -152,8 +152,6 @@ router.post('/place-order', async (req, res) => {
 router.get('/orders', verifyLogin, async (req, res) => {
   let cancelled = false
   order = await userHelpers.getOrder(req.session.user._id)
-  cancelled = order.cancelled 
-  console.log('LOGGING ORDER.CANCELLED',order.cancelled);
   
   res.render('user/view-orders', { user: req.session.user, order, cancelled })
 })

@@ -40,6 +40,8 @@
                         <input type="text" hidden name="userId" value="{{user._id}}">
                         <input type="text" hidden name="orderId" value="{{orderId}}">
                         <input type="text" hidden name="payment" value="{{order.payment}}">
+                        <input type="text" hidden name="orderDate" value="{{order.date}}">
+                        <input type="text" hidden name="paymentStat" value="{{order.status}}">
                         {{#each order.products}}
                         <input type="text" hidden name="products" value="{{this.product}}">
                         <input type="text" hidden name="proId" value="{{this.item}}">

@@ -7,6 +7,8 @@
         <div class=" text-center">
             <a href="/admin/add-item" class="badge mt-3 mb-3 font01" 
             style="background-color: var(--badge-order); color:var(--badge-text)" >Add Item</a>
+            <a href="/admin/users-list" class="badge mt-3 mb-3 font01" 
+            style="background-color: var(--badge-order); color:var(--badge-text)" >Users List</a>
         </div>
         <hr >
         {{#each products}}
@@ -32,11 +34,10 @@
             </div>
         </div>
         {{/each}}
+        <div class=" text-center">
+            <a href="/admin/users-list" class="badge mt-3 mb-3 font01" 
+            style="background-color: var(--badge-order); color:var(--badge-text)" >Users List</a>
+        </div>
         
     </div>
 </section>
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
-</script>

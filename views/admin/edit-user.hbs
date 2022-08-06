@@ -1,0 +1,32 @@
+<section class="">
+    <div class="container ">
+        <div class="row ">
+            <div class="col mx-auto mt-2 ">
+                <h1 class="glorius text-center mt-4 white-text">Edit UserInfo</h1>
+                <hr>
+                <div class="bord m-auto">
+                    <form action="/admin/edit-user/{{webuser._id}}" method="post" class="text-center pt-3">
+                        <label for="name" class="form-text ">Name</label>
+                        <input type="text" name="name" value="{{webuser.name}}"
+                            class="form-text form-area mx-auto text-center" required>
+
+                        <label for="email" class="form-text ">Email</label>
+                        <input type="email" name="email" value="{{webuser.email}}"
+                            class="form-text form-area mx-auto text-center" required>
+                        
+                        <label for="password" class="form-text ">Password</label>
+                        <input type="password" name="password" class="form-text form-area mx-auto text-center" required>
+
+                        <label for="password" class="form-text pt-2">AdminStatus</label>
+                        <p class="font01">True: <input type="radio" name="admin" id="adminstat" value="true" required></p>
+                        <p class="font01" >False: <input type="radio" name="admin"  id="adminstat" value="false"></p>
+
+
+                        <button type="submit" class="font01 mx-auto btn-dark mb-3 ">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

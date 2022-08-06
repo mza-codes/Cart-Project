@@ -26,7 +26,7 @@
                             style="color: white;">New</span> <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link popup voga" onmouseenter="myFunction()" href="/cart">Cart
+                    <a class="nav-link popup voga" onmouseenter="miniCart()" href="/cart">Cart
                         {{#if user.cartItems}}
                         <span class="popuptext" id="myPopup">
                             <div class="col ">
@@ -65,9 +65,8 @@
                     <a class="nav-link voga" href="/help">Help</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link voga" href="/wishlist">Wishlist <span class="badge badge-warning font01"
-                            id="wishlist-count"
-                            style="background-color: var(--badge-wishlist); color:var(--text-secondary)">{{user.wishlistCount}}</span></a>
+                    <a class="nav-link voga" href="/wishlist">Wishlist <span class="badge badge-warning font01"id="wishlist-count"
+                        style="background-color: var(--badge-wishlist); color:var(--text-secondary)">{{user.wishlistCount}}</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link voga" href="/help">Report a Problem</a>

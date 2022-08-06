@@ -322,13 +322,17 @@ body {
     /* background: linear-gradient(var(--gradient-1),var(--gradient-2)); */
 }
 
+.white{
+    color:white;
+}
+
 .light {
     /* --main-bg: #579b91;
     --text-bg: black;
     --shadow: #43505c;
     --text-sec: #00255a;
     --text-main: #0b1a2e; */
-    background: radial-gradient(rgb(255, 255, 255), rgb(255, 132, 0));
+    background: radial-gradient(rgb(255, 255, 255), rgb(220, 93, 2));
     /* background: radial-gradient(rgb(224, 144, 255),rgb(255, 169, 39)) ; */
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
@@ -339,6 +343,9 @@ body {
     --gradient-2: rgb(255, 132, 0);
     --gradient-1: rgb(255, 162, 162);
     --bg-main:beige;
+    
+    /* --tile-color1:rgb(185, 82, 19);
+    --tile-color2:rgb(201, 201, 201); */
 }
 
 .nav-link {
@@ -367,6 +374,8 @@ body {
     --gradient-1: rgb(0, 145, 135);
     --gradient-2: rgb(17, 16, 16);
     --bg-main:rgb(63, 63, 63);
+    --tile-color1:rgb(58, 0, 0);
+    --tile-color2:rgb(111, 0, 39);
     
 }
 
