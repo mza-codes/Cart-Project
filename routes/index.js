@@ -150,9 +150,10 @@ router.post('/place-order', async (req, res) => {
 })
 
 router.get('/orders', verifyLogin, async (req, res) => {
-  let cancelled = false
-  order = await userHelpers.getOrder(req.session.user._id)
-  
+  userId = req.session.user._id
+  order = await userHelpers.getOrder(userId)
+  cancelled = await userHelpers.getCancelledOrders(userId)
+  console.log('KLOGGING CANCELLED',cancelled);
   res.render('user/view-orders', { user: req.session.user, order, cancelled })
 })
 

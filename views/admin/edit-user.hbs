@@ -17,9 +17,12 @@
                         <label for="password" class="form-text ">Password</label>
                         <input type="password" name="password" class="form-text form-area mx-auto text-center" required>
 
-                        <label for="password" class="form-text pt-2">AdminStatus</label>
-                        <p class="font01">True: <input type="radio" name="admin" id="adminstat" value="true" required></p>
-                        <p class="font01" >False: <input type="radio" name="admin"  id="adminstat" value="false"></p>
+                        <div class="p-3">
+                        <label for="password" class="form-text">AdminStatus</label>
+                        <p class="font01 badge badge-success"><input type="radio" name="admin" id="adminstat" value="true" required> True</p>
+                        
+                        <p class="font01 badge badge-danger" ><input type="radio" name="admin"  id="adminstat" value="false"> False</p>
+                        </div>
 
 
                         <button type="submit" class="font01 mx-auto btn-dark mb-3 ">Submit</button>

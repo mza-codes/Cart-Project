@@ -296,26 +296,6 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId) },
                 { sort: [['date', 'desc']] }).toArray()
-            // console.log('LOGGING ORDERS',orders);
-            let cancelled = false
-            for (let index = 0; index < orders.length; index++) {
-                cancelled = orders[index].cancellationDate;
-                console.log('LOGGING EVERYTIME LOOP WORKS',cancelled);
-                if (cancelled != undefined) {
-                  cancelled = true
-                  console.log('LOGGING FROM 305 true');
-                  break
-                  console.log('TOP;LOGGING%%5');
-                } else {
-                    console.log('log from false else state 309');
-                  cancelled = false
-                }
-              }
-              console.log('LOGGING CANCELLED VALUE OUTSIDE FORLOOP',cancelled)
-            orders.sort((a, b) => {
-                return b.orderStatus - a.orderStatus
-            })
-            orders.cancelled = cancelled
             resolve(orders)
         })
     },
@@ -345,7 +325,7 @@ module.exports = {
 
             if (order != 0) {
                 count = order.length
-                console.log('LOG FROM ORDER TRUE STATE',count);
+                console.log('LOG FROM ORDER TRUE STATE', count);
                 resolve(count)
             } else {
                 // count = null
@@ -353,24 +333,23 @@ module.exports = {
             }
         })
     },
-    
+
     cancelOrder: (orderId, cancelled) => {
         return new Promise((resolve, reject) => {
             console.log('LOGGING cancelled values', cancelled);
-            let cancelledOrders = {
-                orderDate:cancelled.orderDate,
+            let cancelledOrder = {
+                orderDate: cancelled.orderDate,
                 reason: cancelled.reason,
                 otherReason: cancelled.otherReason,
                 userId: cancelled.userId,
                 orderId: cancelled.orderId,
                 totalCost: cancelled.totalCost,
                 paymentMethod: cancelled.payment,
-                productsCancelled: cancelled.products,
-                productsId: cancelled.proId,
+                cancelledProductsId: cancelled.proId,
                 dateCancelled: new Date().toLocaleString()
             }
             db.get().collection(values.ORDER_COLLECTION).deleteOne({ _id: objectId(orderId) })
-            db.get().collection(values.CANCELLED_ORDERS).insertOne(cancelledOrders)
+            db.get().collection(values.CANCELLED_ORDERS).insertOne(cancelledOrder)
             resolve()
         })
     },
@@ -411,8 +390,8 @@ module.exports = {
                         item: 1, wishdate: 1, product: { $arrayElemAt: ['$product', 0] }
                     }
                 },
-                { 
-                    $sort: { wishdate: -1 } 
+                {
+                    $sort: { wishdate: -1 }
                 }
 
             ]).toArray()
@@ -427,6 +406,16 @@ module.exports = {
                 }
             )
         return true
+    },
+    getCancelledOrders: (userId) => {
+        console.log('logging userIDIDIUD',userId);
+        return new Promise(async (resolve, reject) => {
+            
+            let order = await db.get().collection(values.CANCELLED_ORDERS).find({ userId: userId },
+                { sort: [['dateCancelled', 'desc']] }).toArray()
+            console.log('KfdsLOGGING CANCELLED', order);
+            resolve(order)
+        })
     }
 
 

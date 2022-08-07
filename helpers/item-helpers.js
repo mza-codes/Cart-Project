@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 module.exports = {
 
     addItem: (item, callback) => {
+        item.price = parseInt(item.price)
         db.get().collection(values.ITEM_COLLECTION).insertOne(item).then((data) => {
             callback(data.insertedId)
         })
@@ -109,7 +110,8 @@ module.exports = {
                 await db.get().collection(values.CANCELLED_ORDERS)
                 .updateMany({ userId: ObjectID(userId) }, {
                     $set: {
-                        userAccountRemoved: true
+                        userAccountRemoved: true,
+                        orderStatus: false
                     }
                 })
             await db.get().collection(values.USER_COLLECTION).deleteOne({_id:objectId(userId)}).then(async(response)=>{

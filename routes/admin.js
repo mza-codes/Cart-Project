@@ -104,8 +104,8 @@ router.get('/users-list',verifyAdmin,async(req,res)=>{
   user=req.session.user
   console.log('LOGGING USER',user);
   if(user.superAdmin){
-    superUserMode = true
-  res.render('admin/view-webusers',{webusers,user,superUserMode})
+    // superUserMode = true
+  res.render('admin/view-webusers',{webusers,user})
   }else{
     let message = "You're not a SuperAdmin"
     res.render('admin/view-webusers',{message,user})
@@ -119,7 +119,6 @@ router.get('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   })
 })
 router.post('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
-  console.log('LOGGING REQ.BODY',req.body);
   if(req.body.admin === 'true'){
     req.body.admin = true
   }else{

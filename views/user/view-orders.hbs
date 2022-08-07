@@ -11,7 +11,7 @@
         <div class="row">
                  <div class="col-12 p-5 mb-3" style="border: 2px solid var(--text-main); border-radius: 15px;">
                     <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
-                    {{#if this.orderStatus}}
+                    {{!-- {{#if this.orderStatus}} --}}
                     <div class="float-right ">
                     {{#each this.products}}
                     <img  src="/poster-images/{{this.product._id}}.png" class="p-2"
@@ -20,10 +20,10 @@
                     </div>
                         {{#if this.status}}
                     <p class="font01 text-white badge badge-success" onmouseleave="closeMsg('{{this._id}}')" onmouseenter="viewMsg2('{{this._id}}')" 
-                    style="font-size: medium; color: white !important;">Order Status: Placed</p> <p id="{{this._id}}" class="font0 text-white" ></p>
+                    style="font-size: medium;">Order Status: Placed</p> <p id="{{this._id}}" class="font0 text-white" ></p>
                         {{else}}
                     <p class="font01 text-white badge badge-danger" onmouseleave="closeMsg('{{this._id}}')" onmouseenter="viewMsg('{{this._id}}')" 
-                    style="font-size: medium; color: white !important;">Order Status: Pending</p> <p id="{{this._id}}" class="font0 text-white" ></p>
+                    style="font-size: medium;">Order Status: Pending</p> <p id="{{this._id}}" class="font0 text-white" ></p>
                         {{/if}}
                     <p class="font01 text-white">Address:<br> {{this.deliveryDetails.address}}<br>{{this.deliveryDetails.landmark}}<br> Pin: {{this.deliveryDetails.pincode}} </p>
                     <p class="font01 text-white">Mobile: {{this.deliveryDetails.mobile}} </p>
@@ -33,17 +33,31 @@
                     </a>
                     <a href="/cancel-form/{{this._id}}"><button onclick="return confirm('This Order Will be Cancelled!')" class="float-right ordercancelbtn font01 m-2">Cancel Order</button></a>
                     <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')" class="float-right orderinfobtn font01 m-2">Need Help </button></a>
-                
-                    {{else}}
-                    <div id="cancelled">
-                    <h4 class="glorius text-white "> Order Cancelled </h4>
-                    <p id="d1" class="font01 text-white"style="font-weight: 700;">On {{this.cancellationDate}} </p>
-                    <p class="font01 text-white" >Totalling Rs. <span style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
-                    <p class="font01 text-white">Order Status: <span class="badge badge-danger" style="font-size:  larger;"> CANCELLED!</span></p>
-                    </div>
-                    {{/if}}
-            
+                    
                 </div>
+        </div>
+        {{/each}}
+        {{#if cancelled}}
+        <div class="row">
+            <h1 class="glorius text-white m-auto pt-4 "> Cancelled Orders</h1>
+        </div><hr>
+        {{/if}}
+        {{#each cancelled}}
+        <div class="row">
+            <div class="col-12 p-3 mb-3"style="border: 2px solid var(--text-main); border-radius: 25px;">
+                <div id="cancelled">
+                    <p id="d1" class="font01 text-white"style="font-weight: 700;">
+                        Cancellation Date: {{this.dateCancelled}} </p>
+                    <p class="font01 text-white">Totalling Rs. <span style="font-size: larger;font-weight: 700">{{this.totalCost}}/-</span></p>
+                    <p class="font01 text-white">Order Status: <span class="badge badge-danger" style="font-size: larger;"> CANCELLED!</span></p>
+                    <p class="font01 text-white">Reason: <span style=" font-weight: 600">{{this.reason}}</span></p>
+                    <p class="font01 text-white">Other Reason: <span style="font-weight: 600">{{this.otherReason}}</span></p>
+                    <p class="font01 text-white">Payment Method: <span style="font-weight: 600">{{this.paymentMethod}}</span></p>
+                </div>
+                <hr>
+                <p class="font01 text-white">*This order has been cancelled,Debited amounts have been refunded</p>
+            </div>
+            
         </div>
         
         {{/each}}

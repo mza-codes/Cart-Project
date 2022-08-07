@@ -20,20 +20,20 @@
                 <hr>
                 <div class=" m-auto ">
                     <form action="/cancel-order/" method="post" id="" class="text-center pt-2">
-                        <label for="COD" class="form-text text-white" style="font-weight: 900; font-size: larger;">Reason For
+                        <label class="form-text text-white" style="font-weight: 900; font-size: larger;">Reason For
                             Cancellation</label>
-                        <input type="radio" name="reason" class="m-2 p-3" required value="Similar Item Purchased">
-                        <label for="COD" class="font01 m-1 text-white">Ordered Similar Item</label>
-                        <br>
-                        <input type="radio" name="reason" class="m-2 p-3 " value="Shipping Delay">
-                        <label for="COD" class="font01 m-1 text-white">Delayed Delivery</label>
-                        <br>
-                        <input type="radio" name="reason" class="m-2 p-3 " value="Order Exists">
-                        <label for="COD" class="font01 m-1 text-white">Duplicate Order</label>
-                        <br>
-                        <input type="radio" name="reason" class="m-2  p-3" value="Expensive">
-                        <label for="COD" class="font01 m-1 text-white ">Expensive</label>
-                        <br>
+                        <p class="font01 text-white"><input type="radio" name="reason" class="m-1" required 
+                        value="Similar Item Purchased">Ordered Similar Item</p>
+                        
+                        <p class="font01 text-white"><input type="radio" name="reason" class="m-1" required 
+                        value="Shipping Delay">Delayed Delivery</p>
+
+                        <p class="font01 text-white"><input type="radio" name="reason" class="m-1" required 
+                        vvalue="Order Exists">Duplicate Order</p>
+
+                        <p class="font01 text-white"><input type="radio" name="reason" class="m-1" required 
+                        value="Expensive">Expensive</p>
+                        
                         <hr>
                         <label for="COD" class="font01 m-1 text-white" style="font-weight: 900; font-size: larger;">Description</label><br>
                         <textarea type="radio" cols="26" name="otherReason" style="border-radius:20px ;" class="m-2 font01 text-center p-3" placeholder="Optional"></textarea>
@@ -43,14 +43,13 @@
                         <input type="text" hidden name="orderDate" value="{{order.date}}">
                         <input type="text" hidden name="paymentStat" value="{{order.status}}">
                         {{#each order.products}}
-                        <input type="text" hidden name="products" value="{{this.product}}">
                         <input type="text" hidden name="proId" value="{{this.item}}">
                         {{/each}}
                         <input type="text" hidden name="totalCost" value="{{order.totalAmount}}">
                         
                         <hr>
                         <button type="submit" class="font01 mx-auto btn-success mb-3 ">Submit</button><br>
-                        <hr>
+                        
                     </form>
                 </div>
             </div>

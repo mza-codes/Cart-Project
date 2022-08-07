@@ -8,12 +8,12 @@
             </label>
         </div>
         {{!-- END --}}
-        <a class="navbar-brand voga" href="/admin">{{#if user}}{{user.name}}  [] Admin Panel {{else}} Admin Panel {{/if}}</a>
+        <a class="navbar-brand voga" href="/admin">{{#if user}}{{user.name}} | Admin Panel {{else}} Admin Panel {{/if}}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        {{#if superUserMode}}
+        {{#if user.superAdmin}}
             <span class="font01 badge badge-success"href="#">SU Mode</span>
         {{/if}}       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
