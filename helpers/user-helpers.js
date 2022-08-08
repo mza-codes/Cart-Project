@@ -2,7 +2,12 @@ var db = require('../db-connect/connectdb')
 var values = require('../data')
 const bcrypt = require('bcrypt')
 var objectId = require('mongodb').ObjectId
-
+const Razorpay = require('razorpay');
+const crypto = require('crypto')
+var instance = new Razorpay({
+    key_id: 'rzp_test_IvGWMBpENteAE2',
+    key_secret: 'tH4vJwFji3WLnDms9bT9sPyL',
+});
 
 module.exports = {
     recordUser(userData) {
@@ -265,7 +270,7 @@ module.exports = {
     },
     createOrder: (order, cartItems, total) => {
         return new Promise(async (resolve, reject) => {
-            let status = order.payment === 'COD' ? true : false
+            // let status = order.payment === 'COD' ? true : false
             let orderObj = {
                 deliveryDetails: {
                     fullname: order.fullname,
@@ -276,26 +281,27 @@ module.exports = {
                     payment: order.payment
                 },
                 userId: objectId(order.userId),
-                payment: order.payment,
+                paymentMethod: order.payment,
                 products: cartItems,
                 totalAmount: total,
-                status: status,
+                paymentStatus: order.paymentStatus,
                 orderStatus: true,
-                date: new Date().toLocaleString()
+                orderDate: new Date().toLocaleString()
             }
 
             db.get().collection(values.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
                 db.get().collection(values.CART_COLLECTION).deleteOne({ user: objectId(order.userId) })
                 console.log('data insert complete, printing response');
                 console.log(response);
+                resolve(response.insertedId)
             })
-            resolve()
+
         })
     },
     getOrder: (userId) => {
         return new Promise(async (resolve, reject) => {
             let orders = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId) },
-                { sort: [['date', 'desc']] }).toArray()
+                { sort: [['orderDate', 'desc']] }).toArray()
             resolve(orders)
         })
     },
@@ -408,13 +414,103 @@ module.exports = {
         return true
     },
     getCancelledOrders: (userId) => {
-        console.log('logging userIDIDIUD',userId);
         return new Promise(async (resolve, reject) => {
-            
+
             let order = await db.get().collection(values.CANCELLED_ORDERS).find({ userId: userId },
                 { sort: [['dateCancelled', 'desc']] }).toArray()
-            console.log('KfdsLOGGING CANCELLED', order);
             resolve(order)
+        })
+    },
+    generatePayment: (orderId, total) => {
+        return new Promise(async (resolve, reject) => {
+            let order = await db.get().collection(values.PAYMENT_DETAILS).findOne({ receipt: orderId })
+            if (order) {
+                console.log('LOGGING ORDEREXIST VALUE', order);
+                await db.get().collection(values.PAYMENT_DETAILS).updateOne({ receipt: orderId },
+                    {
+                        $set: { paymentDate: new Date().toLocaleString(),
+                                paymentComplete: false, },
+                        $inc: { attempts: 1 },
+
+                    })
+                resolve(order)
+            } else {
+                var options = {
+                    amount: total * 100,
+                    currency: "INR",
+                    receipt: orderId,
+                };
+                instance.orders.create(options, (err, order) => {
+                    if (err) {
+                        console.log('PAYMENT ERR :', err);
+                    }
+
+                    console.log('NEW ORDER/PAYMENT GEN', order);
+                    order.paymentDate = new Date().toLocaleString()
+                    db.get().collection(values.PAYMENT_DETAILS).insertOne(order).then(() => {
+                        resolve(order)
+                    })
+                    // resolve(order)
+                })
+            }
+        })
+    },
+    verifyPayment: (data) => {  //same method but different syntax,needs changes in $.ajax order-form.hbs data:Json.Stringify
+        return new Promise(async (resolve, reject) => {
+            let order = await db.get().collection(values.PAYMENT_DETAILS).findOne({ id: data.razorpay_order_id })
+            let hmac = crypto.createHmac('sha256', instance.key_secret)
+            hmac.update(data['payment[razorpay_order_id]'] + '|' + data['payment[razorpay_payment_id]'])
+            hmac = hmac.digest('hex')
+            console.log('DD', hmac);
+            console.log('TT!', data['payment[razorpay_signature]']);
+            if (hmac == data['payment[razorpay_signature]']) {
+                console.log('PAYMENT SUCCESS, HASH MATCHED');
+                resolve()
+            } else {
+                console.log('CALLING REJECT HASHKEY MISMATCH');
+                reject()
+            }
+        })
+    },
+    verifyPayment0: (data) => {
+        return new Promise(async (resolve, reject) => {
+            console.log('LOGGING RECVD DATA(payment)', data);
+            let order = await db.get().collection(values.PAYMENT_DETAILS).findOne({ id: data.razorpay_order_id })
+            console.log('LOGGING ORDER ID FROM SERVER', order.id);
+            generated_signature = crypto.createHmac('sha256', order.id + "|" + data.razorpay_payment_id, instance.key_secret);
+            let body = order.id + "|" + data.razorpay_payment_id;
+            var expectedSignature = crypto.createHmac('sha256', instance.key_secret)
+                .update(body.toString())
+                .digest('hex');
+            console.log("SIG ORINAL GENerated ", generated_signature);
+            console.log("sig received ", data.razorpay_signature);
+            console.log("sig generated ", expectedSignature);
+            if (expectedSignature === data.razorpay_signature) {
+                console.log('PAYMENT SUCCESS, HASH MATCHED');
+                await db.get().collection(values.ORDER_COLLECTION)
+                    .updateOne({ _id: objectId(order.receipt) },
+                        {
+                            $set: {
+                                paymentComplete: true,
+                                paymentStatus: true,
+                                paymentId: order.id,
+                                paymentDate: new Date().toLocaleString()
+                            }
+                        }),
+                    await db.get().collection(values.PAYMENT_DETAILS)
+                        .updateOne({ id:order.id },
+                            {
+                                $set: {
+                                    paymentComplete: true,
+                                    paymentCompleteDate: new Date().toLocaleString(),
+                                    status: "complete",
+                                }
+                            })
+                resolve()
+            } else {
+                console.log('CALLING REJECT HASHKEY MISMATCH');
+                reject()
+            }
         })
     }
 

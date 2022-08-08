@@ -21,7 +21,7 @@ const verifyLogin = async (req, res, next) => {
     } else {
       user.cartItems = null
     }
-    
+
     console.log('USER from MAIN', user);
     next()
   } else {
@@ -111,7 +111,7 @@ router.get('/cart', verifyLogin, async (req, res) => {
     res.render('user/cart', { user, products, total })
   } else {
     let msg = 'Your Cart is Empty'
-    res.render('user/cart', { user, products,msg })
+    res.render('user/cart', { user, products, msg })
   }
 })
 
@@ -143,25 +143,70 @@ router.post('/place-order', async (req, res) => {
   console.log(req.body);
   let cart = await userHelpers.getCart(req.body.userId)
   let totalAmount = await userHelpers.getTotal(req.body.userId)
+  let status = req.body.payment === 'COD' ? true : false
+  req.body.paymentStatus = status
   userHelpers.createOrder(req.body, cart, totalAmount).then((response) => {
-    res.render('user/order-status', { user: req.session.user })
+    orderId = response.toString()
+    console.log('LOGGING RESPONSE:', orderId);
+    console.log('LOGGING rEq.BODY:', req.body);
+    if (req.body.paymentStatus === false) {
+      console.log('LOG FROM IF TRUE');
+      userHelpers.generatePayment(orderId, totalAmount).then(async (response) => {
+        delivery = await userHelpers.getOrder(req.session.user._id)
+        address = delivery[0].deliveryDetails
+        response.address = address
+        response.address.email = req.session.user.email
+        console.log('LOGGING ADDRESS MAIN XX3', address);
+        response.initiatePayment = true
+        res.json(response)
+      })
+    } else if (req.body.paymentStatus === true) {
+      res.json({ codSuccess: true })
+    } else {
+      res.json({ status: false })
+    }
   })
-
 })
 
+router.post('/pay-online', async (req, res) => {
+  console.log('LOG FROM PAY ONLINE ', req.body);
+  orderId = req.body.orderId
+  totalAmount = req.body.total
+  delivery = await userHelpers.getOrder(req.session.user._id)
+  address = delivery[0].deliveryDetails
+  userHelpers.generatePayment(orderId, totalAmount).then((response) => {
+    console.log('loggin response from MAIN XX3:', response);
+    response.address = address
+    response.address.email = req.session.user.email
+    console.log('LOGGING ADDRESS MAIN XX3', address);
+    response.initiatePayment = true
+    res.json(response)
+  })
+})
+
+router.post('/verify-payment', (req, res) => {
+  console.log('LOGGING REQ.BODY MAIN XCV', req.body.payment);
+  userHelpers.verifyPayment0(req.body.payment).then(() => {
+    console.log('SUCCESSSSSS');
+    res.json({ status: true })
+  }).catch((err) => {
+    console.log('LOGGING ERROR', err);
+    res.json({ status: false, error: err })
+  })
+})
+
+router.get('/order-success', verifyLogin, (req, res) => {
+  res.render('user/order-status', { user: req.session.user })
+})
 router.get('/orders', verifyLogin, async (req, res) => {
   userId = req.session.user._id
   order = await userHelpers.getOrder(userId)
   cancelled = await userHelpers.getCancelledOrders(userId)
-  console.log('KLOGGING CANCELLED',cancelled);
   res.render('user/view-orders', { user: req.session.user, order, cancelled })
 })
 
 router.get('/view-order-details/:id([0-9a-fA-F]{24})', verifyLogin, async (req, res) => {
-  // res.send(req.params)
   let orderProducts = await userHelpers.getOrderProducts(req.params.id)
-  console.log('LOGGING ORDERPRODUCTS FROM INDEX.JS', orderProducts);
-  // let orderCount = await userHelpers.getOrderCount(req.session.user._id)
   let orderStatus = await userHelpers.getOrderStatus(req.params.id)
   res.render('user/order-details', { user: req.session.user, orderProducts, orderStatus })
 })

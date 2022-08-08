@@ -1,85 +1,104 @@
 <section>
     <div class="container">
         <div class="row">
-            <h1 class="glorius text-white m-auto pt-4 "> {{#if order}}Your Orders 
+            <h1 class="glorius text-white m-auto pt-4 "> {{#if order}}Your Orders
                 {{else}}You Have'nt Ordered Anything {{/if}} </h1>
-        </div><hr>
-        {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled Orders</span></a> --}}
+        </div>
+        <hr>
+        {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled
+                Orders</span></a> --}}
         {{#if order}}
         {{#each order}}
         {{!-- {{#if this.orderstatus}} --}}
         <div class="row">
-                 <div class="col-12 p-5 mb-3" style="border: 2px solid var(--text-main); border-radius: 15px;">
-                    <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
+            <div class="col-12 p-5 mb-3" style="border: 2px solid var(--text-main); border-radius: 15px;">
+                <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
                     {{!-- {{#if this.orderStatus}} --}}
                     <div class="float-right ">
-                    {{#each this.products}}
-                    <img  src="/poster-images/{{this.product._id}}.png" class="p-2"
-                    style="max-width: 6rem; max-height: 5rem; " alt="" >
-                    {{/each}}
+                        {{#each this.products}}
+                        <img src="/poster-images/{{this.product._id}}.png" class="p-2"
+                            style="max-width: 6rem; max-height: 5rem; " alt="">
+                        {{/each}}
                     </div>
-                        {{#if this.status}}
-                    <p class="font01 text-white badge badge-success" onmouseleave="closeMsg('{{this._id}}')" onmouseenter="viewMsg2('{{this._id}}')" 
-                    style="font-size: medium;">Order Status: Placed</p> <p id="{{this._id}}" class="font0 text-white" ></p>
-                        {{else}}
-                    <p class="font01 text-white badge badge-danger" onmouseleave="closeMsg('{{this._id}}')" onmouseenter="viewMsg('{{this._id}}')" 
-                    style="font-size: medium;">Order Status: Pending</p> <p id="{{this._id}}" class="font0 text-white" ></p>
-                        {{/if}}
-                    <p class="font01 text-white">Address:<br> {{this.deliveryDetails.address}}<br>{{this.deliveryDetails.landmark}}<br> Pin: {{this.deliveryDetails.pincode}} </p>
-                    <p class="font01 text-white">Mobile: {{this.deliveryDetails.mobile}} </p>
-                    <p class="font01 text-white ">Payment Method: {{this.payment}}</p>
-                    <p class="font01 text-white" >Total Cost: <span style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
-                    <p class="font01 text-white">Order Date: {{this.date}}</p>
                     </a>
-                    <a href="/cancel-form/{{this._id}}"><button onclick="return confirm('This Order Will be Cancelled!')" class="float-right ordercancelbtn font01 m-2">Cancel Order</button></a>
-                    <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')" class="float-right orderinfobtn font01 m-2">Need Help </button></a>
-                    
-                </div>
+                    {{#if this.paymentStatus}}
+                    <p class="font01 text-white badge badge-success" onmouseleave="closeMsg('{{this._id}}')"
+                        onmouseenter="viewMsg2('{{this._id}}')" style="font-size: medium;">Order Status: Placed</p>
+                    <p id="{{this._id}}" class="font0 text-white"></p>
+                    {{else}}
+                    <p class="font01 text-white badge badge-danger" style="font-size: medium;">Order Status: Pending</p>
+                    <button onclick="payNow('{{this._id}}','{{this.totalAmount}}')"  style="border:none; text-decoration:none;"
+                    class="badge  font01">
+                    <img src="/images/pay.svg" alt=""style="width: 1rem; height:1rem;"> Pay Here</button>
+                    {{/if}}
+                    <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
+                    <p class="font01 text-white">Address:<br>
+                        {{this.deliveryDetails.address}}<br>{{this.deliveryDetails.landmark}}<br> Pin:
+                        {{this.deliveryDetails.pincode}} </p>
+                    <p class="font01 text-white">Mobile: {{this.deliveryDetails.mobile}} </p>
+                    <p class="font01 text-white ">Payment Method: {{this.paymentMethod}}</p>
+                    <p class="font01 text-white">Total Cost: <span
+                            style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
+                    <p class="font01 text-white">Order Date: {{this.orderDate}}</p>
+                    </a>
+                
+                <a href="/cancel-form/{{this._id}}"><button onclick="return confirm('This Order Will be Cancelled!')"
+                        class="float-right ordercancelbtn font01 m-2">Cancel Order</button></a>
+                <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')"
+                        class="float-right orderinfobtn font01 m-2">Need Help </button></a>
+
+            </div>
         </div>
         {{/each}}
         {{#if cancelled}}
         <div class="row">
             <h1 class="glorius text-white m-auto pt-4 "> Cancelled Orders</h1>
-        </div><hr>
+        </div>
+        <hr>
         {{/if}}
         {{#each cancelled}}
         <div class="row">
-            <div class="col-12 p-3 mb-3"style="border: 2px solid var(--text-main); border-radius: 25px;">
+            <div class="col-12 p-3 mb-3" style="border: 2px solid var(--text-main); border-radius: 25px;">
                 <div id="cancelled">
-                    <p id="d1" class="font01 text-white"style="font-weight: 700;">
+                    <p id="d1" class="font01 text-white" style="font-weight: 700;">
                         Cancellation Date: {{this.dateCancelled}} </p>
-                    <p class="font01 text-white">Totalling Rs. <span style="font-size: larger;font-weight: 700">{{this.totalCost}}/-</span></p>
-                    <p class="font01 text-white">Order Status: <span class="badge badge-danger" style="font-size: larger;"> CANCELLED!</span></p>
+                    <p class="font01 text-white">Totalling Rs. <span
+                            style="font-size: larger;font-weight: 700">{{this.totalCost}}/-</span></p>
+                    <p class="font01 text-white">Order Status: <span class="badge badge-danger"
+                            style="font-size: larger;"> CANCELLED!</span></p>
                     <p class="font01 text-white">Reason: <span style=" font-weight: 600">{{this.reason}}</span></p>
-                    <p class="font01 text-white">Other Reason: <span style="font-weight: 600">{{this.otherReason}}</span></p>
-                    <p class="font01 text-white">Payment Method: <span style="font-weight: 600">{{this.paymentMethod}}</span></p>
+                    <p class="font01 text-white">Other Reason: <span
+                            style="font-weight: 600">{{this.otherReason}}</span></p>
+                    <p class="font01 text-white">Payment Method: <span
+                            style="font-weight: 600">{{this.paymentMethod}}</span></p>
                 </div>
                 <hr>
                 <p class="font01 text-white">*This order has been cancelled,Debited amounts have been refunded</p>
             </div>
-            
+
         </div>
-        
+
         {{/each}}
     </div>
-        {{else}}
-            <div class="container-fluid">
-       
+    {{else}}
+    <div class="container-fluid">
+
         <div class="m-auto p-2 text-center">
             <a class="btn btn-success font01 m-4" href="/">Shop Now !</a>
         </div>
     </div>
-        {{/if}}
+    {{/if}}
 </section>
+
 <script>
-    function viewMsg(orderId){
+    function viewMsg(orderId) {
         document.getElementById(orderId).innerText = 'The order Status my be shown pending in case of payment failure! Please complete payment !'
-        
+
     }
-    function viewMsg2(orderId){
+    function viewMsg2(orderId) {
         document.getElementById(orderId).innerText = 'The Order Status is Placed and Ready to be Shipped !'
     }
-    function closeMsg(orderId){
+    function closeMsg(orderId) {
         document.getElementById(orderId).innerHTML = null
         document.getElementById(orderId).innerHTML = null
 

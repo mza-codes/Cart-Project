@@ -9,28 +9,29 @@
                 <h1 class="glorius text-center mt-4 white-text">Checkout</h1>
                 <hr>
                 <div class=" bordh m-auto ">
-                    <form action="/place-order" method="post" id="#checkout-form" class="text-center pt-2">
+                    <form id="checkout-form" class="text-center pt-2">
 
-                        
+
                         <label for="" class="form-text text-white">Full Name</label>
-                        <input type="text" name="fullname" value="{{address.deliveryDetails.fullname}}" class="form-text form-area mx-auto text-center"
-                            style="width: 65%;" required>
+                        <input type="text" name="fullname" value="{{address.deliveryDetails.fullname}}"
+                            class="form-text form-area mx-auto text-center" style="width: 65%;" required>
 
                         <label for="Address" class="form-text text-white">Address</label>
-                        <input type="text" name="address" value="{{address.deliveryDetails.address}}" class="form-text form-area mx-auto text-center"
-                            style="width: 65%;" required>
+                        <input type="text" name="address" value="{{address.deliveryDetails.address}}"
+                            class="form-text form-area mx-auto text-center" style="width: 65%;" required>
 
                         <label for="landmark" class="form-text text-white">Landmark</label>
-                        <input type="text" value="{{address.deliveryDetails.landmark}}" name="landmark" class="form-text form-area mx-auto text-center" required>
+                        <input type="text" value="{{address.deliveryDetails.landmark}}" name="landmark"
+                            class="form-text form-area mx-auto text-center" required>
 
                         <label for="mobile" class="form-text text-white">Mobile</label>
-                        <input type="tel" name="mobile" value="{{address.deliveryDetails.mobile}}" class="form-text form-area mx-auto text-center"
-                            style="width:35% ;" required>
+                        <input type="tel" name="mobile" value="{{address.deliveryDetails.mobile}}"
+                            class="form-text form-area mx-auto text-center" style="width:35% ;" required>
 
                         <label for="pincode" class="form-text text-white">Pincode</label>
-                        <input type="pincode" value="{{address.deliveryDetails.pincode}}"  name="pincode" class="mb-4 form-text form-area mx-auto text-center"
-                            style="width: 30%;" required>
-                        
+                        <input type="pincode" value="{{address.deliveryDetails.pincode}}" name="pincode"
+                            class="mb-4 form-text form-area mx-auto text-center" style="width: 30%;" required>
+
                         <label for="COD" class="form-text text-white" style="font-weight: 900;">Payment Method</label>
 
                         <div class="m-auto p-3 d-flex" style="justify-content: center; ">
@@ -42,16 +43,16 @@
                                 value="ONLINE">
                             <label for="COD" class="font01 m-1 text-white">Online Payment </label>
                         </div>
-                        <span id="selection" class="font01 white-text" ></span><br>
+                        <span id="selection" class="font01 white-text"></span><br>
                         <h5 class="font01 m-1  text-white">Total Amount <span id="cart-total">
                                 <h4 style="font-weight: 900;">{{total}}/-</h4>
                             </span></h5>
-                            <p class="font01 text-white">inclusive of GST@18%</p>
+                        <p class="font01 text-white">inclusive of GST@18%</p>
                         <input type="text" hidden name="userId" value="{{user._id}}">
                         <hr>
                         <button type="submit" class="font01 mx-auto btn-success mb-3 ">Place Order</button><br>
 
-                        <label for="COD" class="font01 m-1 text-white">{{date}}</label>
+                        <label class="font01 m-1 text-white">{{date}}</label>
                         <hr>
                     </form>
                 </div>
@@ -59,32 +60,7 @@
         </div>
     </div>
 </section>
+{{!-- <script src="/javascripts/checkout.js"></script> --}}
 <script>
-
-    function online(value) {
-        document.getElementById('selection').innerHTML = 'You have Selected Online Payment Method'
-    }
-    function cod(value) {
-        document.getElementById('selection').innerHTML = 'You have Selected Cash On Delivery Payment Method'
-    }
-
-
-
-
-
-    $("#checkout-form").submit((e) => {
-        alert('ajax working now')
-        e.preventDefault()
-        $.ajax({
-            url: '/ajax-called-here',
-            method: 'post',
-            data: $('#checkout-form').serialize(),
-            success: (response) => {
-                alert(response)
-                if (response.status) {
-                    location.href = '/cart'
-                }
-            }
-        })
-    })
+    
 </script>
