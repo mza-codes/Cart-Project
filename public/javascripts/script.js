@@ -76,13 +76,12 @@ function delFromCart(cartId, proId) {
 
 }
 
-
-function online(value) {
-    document.getElementById('selection').innerHTML = 'You have Selected Online Payment Method'
-}
-function cod(value) {
-    document.getElementById('selection').innerHTML = 'You have Selected Cash On Delivery Payment Method'
-}
+// function online(value) {
+//     document.getElementById('selection').innerHTML = 'You have Selected Online Payment Method'
+// }
+// function cod(value) {
+//     document.getElementById('selection').innerHTML = 'You have Selected Cash On Delivery Payment Method'
+// }
 
 function payNow(orderId,total){
     $.ajax({

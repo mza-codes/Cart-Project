@@ -270,7 +270,7 @@ module.exports = {
     },
     createOrder: (order, cartItems, total) => {
         return new Promise(async (resolve, reject) => {
-            // let status = order.payment === 'COD' ? true : false
+            let status = order.payment === 'COD' ? "Placed" : "Payment Pending"
             let orderObj = {
                 deliveryDetails: {
                     fullname: order.fullname,
@@ -278,15 +278,16 @@ module.exports = {
                     landmark: order.landmark,
                     mobile: order.mobile,
                     pincode: order.pincode,
-                    payment: order.payment
                 },
+                name:order.fullname,
                 userId: objectId(order.userId),
                 paymentMethod: order.payment,
                 products: cartItems,
                 totalAmount: total,
-                paymentStatus: order.paymentStatus,
-                orderStatus: true,
-                orderDate: new Date().toLocaleString()
+                orderPlaced: order.paymentStatus,
+                paymentStatus: false,
+                orderStatus: status,
+                orderDate: new Date().toLocaleString(),
             }
 
             db.get().collection(values.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
@@ -327,7 +328,7 @@ module.exports = {
     getOrderCount: (userId) => {
         return new Promise(async (resolve, reject) => {
             let count = null
-            let order = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId), orderStatus: true }).toArray()
+            let order = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId)}).toArray()
 
             if (order != 0) {
                 count = order.length
@@ -492,9 +493,13 @@ module.exports = {
                         {
                             $set: {
                                 paymentComplete: true,
+                                orderPlaced: true,
                                 paymentStatus: true,
                                 paymentId: order.id,
-                                paymentDate: new Date().toLocaleString()
+                                paymentDate: new Date().toLocaleString(),
+                                paymentMethod: "ONLINE",
+                                orderStatus: "Placed"
+
                             }
                         }),
                     await db.get().collection(values.PAYMENT_DETAILS)

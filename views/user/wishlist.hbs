@@ -1,5 +1,5 @@
 <section>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <h1 class="glorius text-white m-auto pt-4 "> {{#if wishlist}}Your Wishlist 
                 {{else}}There's Nothing to show here! {{/if}} </h1>
@@ -7,14 +7,14 @@
         {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled Orders</span></a> --}}
         {{#if wishlist}}
         
-        {{#each wishlist}}
+        {{!-- {{#each wishlist}} --}}
         <div class="row">
-            
-                 <div class="col mb-3 wishtile" style="min-width: 24rem; border-radius: 15px;">
+                {{#each wishlist}}
+                 <div class="col m-3 wishtile" style="min-width: 24rem; border-radius: 15px;">
                    
-                    <div class="float-left p-4 ">
+                    <div class="float-right p-3 ">
                     <img  src="/poster-images/{{this.product._id}}.png" class="p-3"
-                    style="max-width: 16rem; max-height: 25rem;" alt="" >
+                    style="max-width: 8rem; max-height: 8rem;" alt="" >
                     </div>
                     <div class="mr-auto p-5">
                     <h4 class="font01 text-white " style="font-weight: 600;">{{this.product.name}} </h4>
@@ -36,9 +36,10 @@
                     </div>
                     
                 </div>
+                {{/each}}
                 
         </div>
-        {{/each}}
+        {{!-- {{/each}} --}}
     </div>
         {{else}}
             <div class="container-fluid">

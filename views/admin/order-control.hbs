@@ -8,19 +8,14 @@
         {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled
                 Orders</span></a> --}}
         {{#if order}}
-        {{#each order}}
+
         {{!-- {{#if this.orderstatus}} --}}
-        <div class="row">
-            <div class="col-12 p-5 mb-3" style="border: 2px solid var(--text-main); border-radius: 15px;">
-                <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
-                    {{!-- {{#if this.orderStatus}} --}}
-                    <div class="float-right ">
-                        {{#each this.products}}
-                        <img src="/poster-images/{{this.product._id}}.png" class="p-2"
-                            style="max-width: 6rem; max-height: 5rem; " alt="">
-                        {{/each}}
-                    </div>
-                    </a>
+        <p class="text-center text-white font01" id="message">Listing Total of {{order.count}} Orders from Database</p>
+        {{#each order}}
+        <div class="row -auto">
+
+            <div class="col text-center p-3 mb-2" style="border:1px solid var(--text-main); ">
+                <div class="">
                     {{#if this.orderDelivered}}
                     <p class="font01 badge " style="font-size: medium; background:rgb(210, 105, 0) ;">Order Delivered</p>
                     {{else}}
@@ -38,38 +33,55 @@
                     {{/if}}
                     {{/if}}
                     {{/if}}
+                    <br>
                     <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
-                    <p class="font01 text-white">Address:<br>
-                        {{this.deliveryDetails.address}}<br>{{this.deliveryDetails.landmark}}<br> Pin:
-                        {{this.deliveryDetails.pincode}} </p>
-                    <p class="font01 text-white">Mobile: {{this.deliveryDetails.mobile}} </p>
-                    <p class="font01 text-white">Order ID: {{this._id}} </p>
-                    <p class="font01 text-white ">Payment Method: {{this.paymentMethod}}</p>
-                    {{#if this.paymentComplete}}
+                        <p class="font01 text-white">Address:<br>
+                            {{this.deliveryDetails.fullname}}<br>
+                            {{this.deliveryDetails.address}}<br>{{this.deliveryDetails.landmark}}<br>
+                            Pin: {{this.deliveryDetails.pincode}} </p>
+                        <p class="font01 text-white">Mobile: {{this.deliveryDetails.mobile}} </p>
+                        <p class="font01 text-white ">Payment Method: {{this.paymentMethod}}</p>
+                        {{#if this.paymentComplete}}
                         <p class="font01 text-white">Payment Date: {{this.paymentDate}}</p>
                         <p class="font01 text-white">Payment ID: {{this.paymentId}}</p>
                         <p class="font01 text-white">Payment Complete: 
                             <span class="font01  badge badge-success">True</span></p>
                         <p class="font01 text-white">Payment Status: 
                             <span class="font01  badge badge-success">True</span></p>
-                    {{/if}}
-                    <p class="font01 text-white">Total Cost: <span
-                            style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
-                    <p class="font01 text-white">Order Date: {{this.orderDate}}</p>
+                        {{/if}}
+                        <p class="font01 text-white">Total Cost: <span
+                                style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
+                        <p class="font01 text-white">Order Date: {{this.orderDate}}</p>
+                        <p class="font01 text-white badge badge-info " style="font-size: medium;"
+                        >Status: {{this.orderStatus}}</p>
+                        <br>
                     </a>
-                    {{#if this.paymentComplete}}
-                    <p class="font01 text-white">Payment Date: {{this.paymentDate}}</p>
+                    {{#if orderShipped}}
+                    <a href="/admin/complete-order/{{this._id}}"><button
+                            onclick="return confirm('This Order Will be Completed')"
+                            class=" ordercancelbtn font01 m-2">Complete Order</button></a>
                     {{else}}
-                    <button onclick="payNow('{{this._id}}','{{this.totalAmount}}')"  style="border:none; text-decoration:none;"
-                    class="badge  font01">
-                    <img src="/images/pay.svg" alt=""style="width: 1rem; height:1rem;"> Pay Here</button>
+                    {{#if orderPackaged}}
+                    <a href="/admin/ship-order/{{this._id}}"><button
+                            onclick="return confirm('This Order Will be Shipped')"
+                            class=" ordercancelbtn font01 m-2">Ship Package</button></a>
+                    {{else}}
+                    <a href="/admin/pack-order/{{this._id}}"><button
+                            onclick="return confirm('This Order Will be Packaged')"
+                            class=" ordercancelbtn font01 m-2">Package</button></a>
                     {{/if}}
-                
-                <a href="/cancel-form/{{this._id}}"><button onclick="return confirm('This Order Will be Cancelled!')"
-                        class="float-right ordercancelbtn font01 m-2">Cancel Order</button></a>
-                <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')"
-                        class="float-right orderinfobtn font01 m-2">Need Help </button></a>
-
+                    {{/if}}
+                    <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')"
+                            class=" orderinfobtn font01 m-2">Need Help </button></a>
+                </div>
+                <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
+                    <div class="">
+                        {{#each this.products}}
+                        <img src="/poster-images/{{this.product._id}}.png" class="p-2"
+                            style="max-width: 7rem; max-height: 6rem; " alt="">
+                        {{/each}}
+                    </div>
+                </a>
             </div>
         </div>
         {{/each}}

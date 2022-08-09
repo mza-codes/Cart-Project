@@ -22,7 +22,7 @@
 
                         <label for="landmark" class="form-text text-white">Landmark</label>
                         <input type="text" value="{{address.deliveryDetails.landmark}}" name="landmark"
-                            class="form-text form-area mx-auto text-center" required>
+                            class="form-text form-area mx-auto text-center" style="width: 65%;" required>
 
                         <label for="mobile" class="form-text text-white">Mobile</label>
                         <input type="tel" name="mobile" value="{{address.deliveryDetails.mobile}}"
@@ -35,11 +35,11 @@
                         <label for="COD" class="form-text text-white" style="font-weight: 900;">Payment Method</label>
 
                         <div class="m-auto p-3 d-flex" style="justify-content: center; ">
-                            <input type="radio" name="payment" class="m-2" id="payment" onclick="cod('COD')"
+                            <input type="radio" name="payment" class="m-2" id="payment"
                                 value="COD">
                             <label for="COD" class="font01 m-1 text-white">Cash On Delivery </label>
 
-                            <input type="radio" name="payment" class="m-2" onclick="online('online')" id="payment"
+                            <input type="radio" name="payment" class="m-2" id="payment"
                                 value="ONLINE">
                             <label for="COD" class="font01 m-1 text-white">Online Payment </label>
                         </div>

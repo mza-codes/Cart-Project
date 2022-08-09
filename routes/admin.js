@@ -30,12 +30,12 @@ router.get('/', verifyAdmin, function (req, res) {
   console.log('printing req sess loggedin from /admin');
   console.log(req.session.loggedIn);
   itemHelpers.getAllItems().then((products) => {
-    res.render('admin/view-items0', { products, user,adminstat })
+    res.render('admin/view-items0', { products, user, adminstat })
   })
 });
 
 router.get('/add-item', verifyAdmin, (req, res) => {
-  res.render('admin/add-item', {user,adminstat})
+  res.render('admin/add-item', { user, adminstat })
 })
 
 router.post('/add-item', verifyAdmin, (req, res) => {
@@ -76,7 +76,7 @@ router.get('/delete-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
 router.get('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   //console.log(req.params.id)
   itemHelpers.getItem(req.params.id).then((item) => {
-    res.render('admin/edit-item', { item,user,adminstat })
+    res.render('admin/edit-item', { item, user, adminstat })
   })
 })
 router.post('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
@@ -91,45 +91,45 @@ router.post('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
       } catch (err) {
         console.error(err)
       }
-    } else if(req.body.poster) {
+    } else if (req.body.poster) {
       let image = req.files.poster
       image.mv('./public/poster-images/' + id + '.png')
-    }else{
-      
+    } else {
+
     }
   })
 })
-router.get('/users-list',verifyAdmin,async(req,res)=>{
+router.get('/users-list', verifyAdmin, async (req, res) => {
   let webusers = await itemHelpers.getWebUsers()
-  user=req.session.user
-  console.log('LOGGING USER',user);
-  if(user.superAdmin){
+  user = req.session.user
+  console.log('LOGGING USER', user);
+  if (user.superAdmin) {
     // superUserMode = true
-  res.render('admin/view-webusers',{webusers,user})
-  }else{
+    res.render('admin/view-webusers', { webusers, user })
+  } else {
     let message = "You're not a SuperAdmin"
-    res.render('admin/view-webusers',{message,user})
+    res.render('admin/view-webusers', { message, user })
   }
-  console.log('LOGGINGIFSDVSZFHFSHB',webusers);
+  console.log('LOGGINGIFSDVSZFHFSHB', webusers);
 })
 router.get('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   //console.log(req.params.id)
   itemHelpers.getUser(req.params.id).then((webuser) => {
-    res.render('admin/edit-user', { webuser,user })
+    res.render('admin/edit-user', { webuser, user })
   })
 })
 router.post('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
-  if(req.body.admin === 'true'){
+  if (req.body.admin === 'true') {
     req.body.admin = true
-  }else{
+  } else {
     req.body.admin = false
   }
-  console.log('LOGGING REQ.BODY.ADMIN AFTER IFF',req.body);
+  console.log('LOGGING REQ.BODY.ADMIN AFTER IFF', req.body);
   itemHelpers.updateUser(req.params.id, req.body).then((stat) => {
-    console.log('LOGGING STAT FROM 123GGSDA',stat);
-    if(stat){
+    console.log('LOGGING STAT FROM 123GGSDA', stat);
+    if (stat) {
       res.redirect('/admin/users-list')
-    }else{
+    } else {
       res.send('failure')
     }
   })
@@ -137,10 +137,43 @@ router.post('/edit-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
 router.get('/delete-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   let userId = req.params.id
   itemHelpers.delUser(userId).then((response) => {
-    console.log('loggingfdss sdf response',response);
+    console.log('loggingfdss sdf response', response);
     res.redirect('/admin')
   })
 })
+router.get('/order-control/', verifyAdmin,async (req, res) => {
+  user = req.session.user
+  console.log('LOG FROM ORDER-CONTROL')
+  let order = await itemHelpers.getFullOrder()
+  console.log('LOGGING dATA XXCMAIN',order);
+  res.render('admin/order-control',{user,order})
+})
+router.get('/pack-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
+  orderId = req.params.id
+  console.log('LOG FROM PACK-ORDER')
+  await itemHelpers.packageOrder(orderId).then(()=>{
+    res.redirect('/admin/order-control')
+  })
+})
+router.get('/ship-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
+  orderId = req.params.id
+  console.log('LOG FROM ship x SHIP-ORDER')
+  await itemHelpers.shipOrder(orderId).then(()=>{
+    // res.redirect('/admin/order-control')
+    res.send('SUCCESS')
+  })
+})
+router.get('/complete-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
+  orderId = req.params.id
+  console.log('LOG FROM ship x complete-ORDER')
+  await itemHelpers.completeOrder(orderId).then(()=>{
+    // res.redirect('/admin/order-control')
+    res.send('SUCCESS')
+  })
+})
+
+
+
 
 
 module.exports = router;

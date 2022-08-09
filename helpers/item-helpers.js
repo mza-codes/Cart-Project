@@ -121,5 +121,57 @@ module.exports = {
                 resolve(true)
             })
         })
-    }
+    },
+    getFullOrder : ()=>{
+        return new Promise(async(resolve,reject)=>{
+            data = await db.get().collection(values.ORDER_COLLECTION).find({},{ sort: [['orderDate', 'desc']] }).toArray()
+            data.count = data.length
+            resolve(data)
+            
+        }) 
+    },
+    packageOrder:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+            await db.get().collection(values.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
+            {
+                $set:{
+                    orderStatus:"Packaged",
+                    orderPackaged: true,
+                    packageDate: new Date().toLocaleString(),
+                }
+            })
+            let status = true
+            resolve(status)
+        })
+    },
+    shipOrder:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+            await db.get().collection(values.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
+            {
+                $set:{
+                    orderStatus:"Order Shipped",
+                    orderPackaged: false,
+                    orderShipped: true,
+                    shippingDate: new Date().toLocaleString(),
+                }
+            })
+            let status = true
+            resolve(status)
+        })
+    },
+    completeOrder:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+            await db.get().collection(values.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
+            {
+                $set:{
+                    orderStatus:"Delivered",
+                    orderShipped: false,
+                    orderDelivered: true,
+                    deliveredDate: new Date().toLocaleString(),
+                }
+            })
+            let status = true
+            resolve(status)
+        })
+    },
 }
