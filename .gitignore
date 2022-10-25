@@ -1,2 +1,29 @@
 # add file name to exclude while uploading to github , mandatory for API Keys
 # format: .env  --excludes uploading .env file in source
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+#Key
+.env
+axios-rapidapi-template.txt
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
