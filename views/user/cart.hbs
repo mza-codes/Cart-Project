@@ -1,10 +1,10 @@
 <section>
     <div class="container">
-        <div class="row" >
+        <div class="row">
             <div class="col-12 ">
                 <h1 class="voga white-text m-auto pt-5 pb-1 text-center">{{#if msg}}{{msg}} {{else}} Your Cart {{/if}}
                 </h1>
-                
+
             </div>
         </div>
         {{#if msg}}
@@ -14,21 +14,22 @@
         <hr>
         {{else}}
         {{#each products}}
-        <div class="row" >
+        <div class="row">
             <div class="col-12 text-center mx-auto ml-2 mr-2 " style="max-width: 36rem; border-botom:1px solid white;">
                 <hr style="border: 1px solid white;">
                 <div class="float-right">
-                <img src="/poster-images/{{this.product._id}}.png" alt="" style="width:1.5em; height:3em;"
-                    srcset="{{this.product.picture}}">
+                    <img {{#if this.product.picture}} src="{{this.product.picture}}" {{else}}
+                        src="/poster-images/{{this.product._id}}.png" {{/if}} alt="" style="width:1.5em; height:3em;">
                 </div>
                 <div class="float-left">
-                    <p class="font-white font01 text-white float-left" 
-                        style="margin-left: 30%; margin-top: 40%;">Quantity</p>
+                    <p class="font-white font01 text-white float-left" style="margin-left: 30%; margin-top: 40%;">
+                        Quantity</p>
                 </div>
 
-                <p class="font01 text-white" style="font-weight: 700;">{{this.product.name}} <br> Rs.{{this.product.price}}/- </p>
+                <p class="font01 text-white" style="font-weight: 700;">{{this.product.name}} <br>
+                    Rs.{{this.product.price}}/- </p>
                 {{!-- <p class="font01 text-white " style="font-weight: 700;">Rs.{{this.product.price}}/- </p> --}}
-                <p class="font01 text-white float-left "> 
+                <p class="font01 text-white float-left ">
                     <button onclick="changeQty('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)"
                         class="btn btn-success font01 ">+</button>
                     <span class="badge badge-info font01" id="{{this.product._id}}">{{this.quantity}}</span>
@@ -45,7 +46,8 @@
         <div class="row ">
             <div class="col-12 mx-auto " style="max-width:30rem;">
                 <hr>
-                <h5 class="font01 text-white float-left ">Total Rs.<span class="bold"id="cart-total">{{total}} .00/-</span></h5>
+                <h5 class="font01 text-white float-left ">Total Rs.<span class="bold" id="cart-total">{{total}}
+                        .00/-</span></h5>
                 <a href="/place-order"><button class="btn mybtn float-right font01">Checkout</button></a>
             </div>
         </div>

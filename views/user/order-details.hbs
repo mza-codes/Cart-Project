@@ -2,20 +2,25 @@
     <div class="container-fluid">
         <div class="row">
             <h1 class="glorius text-white text-center m-auto pt-4 ">Your Order Details</h1>
-        </div><hr>
+        </div>
+        <hr>
         {{#if orderProducts}}
         <div class="row">
             {{#each orderProducts}}
             <div class="col text-center mx-auto p-3 m-3"
                 style="border: 2px solid var(--text-main); border-radius: 7px; max-width: 19rem; ">
-                <img src="/poster-images/{{this.product._id}}.png" class="p-2"
+                <img {{#if this.product.picture}} src="{{this.product.picture}}" {{else}}
+                    src="/poster-images/{{this.product._id}}.png" {{/if}} class="p-2"
                     style="width:80%; max-width: 8rem;" alt="">
                 <p class="font01 text-white">Item: <br>{{this.product.name}}</p>
-                
-                <p class="font01 text-white">Quantity: {{this.quantity}}</p>
-                <p class="font01 text-white" style="font-size: larger; font-weight: 700">Price: {{this.product.price}} /- </p>
 
-                <p class="font01 text-white" >Delivery Address : <br>  {{../orderStatus.deliveryDetails.address}} <br> {{../orderStatus.deliveryDetails.landmark}} <br> Pin: {{../orderStatus.deliveryDetails.pincode}} </p>
+                <p class="font01 text-white">Quantity: {{this.quantity}}</p>
+                <p class="font01 text-white" style="font-size: larger; font-weight: 700">Price: {{this.product.price}}
+                    /- </p>
+
+                <p class="font01 text-white">Delivery Address : <br> {{../orderStatus.deliveryDetails.address}} <br>
+                    {{../orderStatus.deliveryDetails.landmark}} <br> Pin: {{../orderStatus.deliveryDetails.pincode}}
+                </p>
                 <p class="font01 text-white">Payment Method: {{../orderStatus.payment}}</p>
                 {{#if ../orderStatus.status}}
                 <span class="font01 badge badge-success" style="font-size: medium;">Order Status: Placed</span>
@@ -24,13 +29,13 @@
                 {{/if}}
                 {{!-- <p class="font01 text-white">Order Status: {{../orderStatus.date}}</p> --}}
                 {{!-- <p class="font01 text-white">Total: {{../orderStatus.totalAmount}}</p> --}}
-                
+
             </div>
             {{/each}}
         </div>
         {{else}}
         <h1 class="glorius text-white text-center m-auto p-4 ">404 NOT FOUND</h1>
-        <p class="font01 text-white text-center">This happens if your order has been cancelled for more than 3 Months, 
+        <p class="font01 text-white text-center">This happens if your order has been cancelled for more than 3 Months,
             Or the Order does not exist !
         </p>
         {{/if}}

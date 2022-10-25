@@ -16,29 +16,31 @@
                     {{!-- {{#if this.orderStatus}} --}}
                     <div class="float-right ">
                         {{#each this.products}}
-                        <img src="/poster-images/{{this.product._id}}.png" class="p-2"
+                        <img s{{#if this.product.picture}} src="{{this.product.picture}}" {{else}}
+                            src="/poster-images/{{this.product._id}}.png" {{/if}} class="p-2"
                             style="max-width: 6rem; max-height: 5rem; " alt="">
                         {{/each}}
                     </div>
-                    </a>
-                    {{#if this.orderDelivered}}
-                    <p class="font01 badge " style="font-size: medium; background:rgb(210, 105, 0) ;">Order Delivered</p>
-                    {{else}}
-                    {{#if this.orderShipped}}
-                    <p class="font01 badge badge-primary" style="font-size: medium;">Order Status: Shipped</p>
-                    {{else}}
-                    {{#if this.orderPackaged}}
-                    <p class="font01 badge " style="font-size: medium; background:rgb(143, 210, 0) ;">Order Status: Packaged</p>
-                    {{else}}
-                    {{#if this.orderPlaced}}
-                    <p class="font01 text-white badge badge-success" style="font-size: medium;">Order Status: Placed</p>
-                    {{else}}
-                    <p class="font01 text-white badge badge-danger" style="font-size: medium;">Order Status: Pending</p>
-                    {{/if}}
-                    {{/if}}
-                    {{/if}}
-                    {{/if}}
-                    <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
+                </a>
+                {{#if this.orderDelivered}}
+                <p class="font01 badge " style="font-size: medium; background:rgb(210, 105, 0) ;">Order Delivered</p>
+                {{else}}
+                {{#if this.orderShipped}}
+                <p class="font01 badge badge-primary" style="font-size: medium;">Order Status: Shipped</p>
+                {{else}}
+                {{#if this.orderPackaged}}
+                <p class="font01 badge " style="font-size: medium; background:rgb(143, 210, 0) ;">Order Status: Packaged
+                </p>
+                {{else}}
+                {{#if this.orderPlaced}}
+                <p class="font01 text-white badge badge-success" style="font-size: medium;">Order Status: Placed</p>
+                {{else}}
+                <p class="font01 text-white badge badge-danger" style="font-size: medium;">Order Status: Pending</p>
+                {{/if}}
+                {{/if}}
+                {{/if}}
+                {{/if}}
+                <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
                     <p class="font01 text-white">Address:<br>
                         {{this.deliveryDetails.address}}<br>{{this.deliveryDetails.landmark}}<br> Pin:
                         {{this.deliveryDetails.pincode}} </p>
@@ -46,29 +48,31 @@
                     <p class="font01 text-white">Order ID: {{this._id}} </p>
                     <p class="font01 text-white ">Payment Method: {{this.paymentMethod}}</p>
                     {{#if this.paymentComplete}}
-                        <p class="font01 text-white">Payment Date: {{this.paymentDate}}</p>
-                        <p class="font01 text-white">Payment ID: {{this.paymentId}}</p>
-                        <p class="font01 text-white">Payment Complete: 
-                            <span class="font01  badge badge-success">True</span></p>
-                        <p class="font01 text-white">Payment Status: 
-                            <span class="font01  badge badge-success">True</span></p>
+                    <p class="font01 text-white">Payment Date: {{this.paymentDate}}</p>
+                    <p class="font01 text-white">Payment ID: {{this.paymentId}}</p>
+                    <p class="font01 text-white">Payment Complete:
+                        <span class="font01  badge badge-success">True</span>
+                    </p>
+                    <p class="font01 text-white">Payment Status:
+                        <span class="font01  badge badge-success">True</span>
+                    </p>
                     {{/if}}
                     <p class="font01 text-white">Total Cost: <span
                             style="font-size: larger; font-weight: 700">{{this.totalAmount}}/-</span></p>
                     <p class="font01 text-white">Order Date: {{this.orderDate}}</p>
-                    </a>
-                    {{#if this.paymentComplete}}
-                    <p class="font01 text-white">Payment Date: {{this.paymentDate}}</p>
-                    {{else}}
-                    <button onclick="payNow('{{this._id}}','{{this.totalAmount}}')"  style="border:none; text-decoration:none;"
-                    class="badge  font01">
-                    <img src="/images/pay.svg" alt=""style="width: 1rem; height:1rem;"> Pay Here</button>
-                    {{/if}}
-                
+                </a>
+                {{#if this.paymentComplete}}
+                <p class="font01 text-white">Payment Date: {{this.paymentDate}}</p>
+                {{else}}
+                <button onclick="payNow('{{this._id}}','{{this.totalAmount}}')"
+                    style="border:none; text-decoration:none;" class="badge  font01">
+                    <img src="/images/pay.svg" alt="" style="width: 1rem; height:1rem;"> Pay Here</button>
+                {{/if}}
+
                 <a href="/cancel-form/{{this._id}}"><button onclick="return confirm('This Order Will be Cancelled!')"
-                        class="float-right ordercancelbtn font01 m-2">Cancel Order</button></a>
+                        class="float-right btn btn-danger m-2">Cancel Order</button></a>
                 <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')"
-                        class="float-right orderinfobtn font01 m-2">Need Help </button></a>
+                        class="float-right btn btn-primary m-2">Need Help </button></a>
 
             </div>
         </div>

@@ -1,62 +1,41 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    {{!--
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> --}}
-    <!-- Bootstrap CSS -->
-
-    <title></title>
-</head>
-
 <body>
-    <section id="mainbody" class="gd0 ">
+    <section id="mainbody">
         <div class="container-fluid">
-            <div class="row">
+            <div class=" centerX">
                 {{#each products}}
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-8 col-10 col-12 mt-4  ">
-                    <div class="card card-bg m-auto card-resize" style="">
-                        <div class="cardImg">
-                        <a {{#if ../user}} onclick="addToWishlist('{{this._id}}')"
-                        {{else}} href="/login" {{/if}} ><img src="/images/love.png" class=" mt-2" alt="" 
-                        style="width:0.8rem; right: 0; margin-right: 0.4rem; position: absolute; height:0.8rem;">
+                <div>
+                    <div class="card cardImg" style="width: 18rem;">
+                        {{!-- <img src="/images/love.png" class="float-right mt-2" alt=""
+                            style="width:0.8rem ;height:0.8rem ;"> --}}
+                        <a class="pointer" {{#if ../user}} onclick="addToWishlist('{{this._id}}')" {{else}}
+                            href="/login" {{/if}}>
+                            <img src="/images/love.png" class="mt-2" alt=""
+                                style="width:0.8rem; right: 0; margin-right: 0.4rem; position: absolute; height:0.8rem;">
                         </a>
-                        <img srcset="{{this.picture}}" src="/poster-images/{{this._id}}.png"
-                            class="card-img-top poster-resize">
-                        </div>
-                        
-
-                        <div class="card-body text-center ">
-                            {{!-- <img src="/images/love.png" class="float-right mt-2" alt="" style="width:0.8rem ;height:0.8rem ;"> --}}
-                            <h5 class="card-title font01 overflow">{{this.name}}</h5>
-                            <h6 class="card-text font0 overflow">Year: {{this.year}}</h6>
-                            <p class="card-text font02 overflow">{{this.genre}}</p>
-                            <p class="card-text font0 overflow">Price: {{this.price}}/-</p>
-                            <p class="card-text font03 overflow">{{this.description}}</p>
-                        {{!-- </form> --}}
-                            {{!-- <a href="#" class="btn btn-danger font01 overflow">Read Full Review</a>
-                            <a href="#" class="btn btn-danger font01 overflow">Add to Watchlist</a> --}}
-                            <a href="#"><button class="readreviewbtn font01">Read Full Review</button></a>
-                            {{!-- <a href="/add-to-cart/{{this._id}}"></a> --}}
-                         {{#if ../user}}
-                            <button onclick="refreshCart('{{this._id}}')" class="addtobtn font01 "
-                                style="color: rgb(255, 255, 255);">Add to Watch</button>
-                          {{else}}
-                            <a href="/login"><button class="addtobtn font01" style="color: rgb(255, 255, 255);">Add to Watch</button></a>
-                          {{/if}}
-                            
+                        <img class="card-img-top card-image" srcset="{{this.picture}}"
+                            src="/poster-images/{{this._id}}.png" alt="image">
+                        <div class="card-body cardBody">
+                            <h5 class="card-title">{{this.name}}</h5>
+                            <p class="card-title">{{this.genre}}</p>
+                            <h5 class="card-title">{{this.price}}/-</h5>
+                            <p class="card-text">{{this.description}}</p>
+                            {{!-- <a href="#" class="btn btn-sm btn-primary">{{this.price}}/-</a> --}}
+                            {{#if ../user}}
+                            <button onclick="refreshCart('{{this._id}}')" class="btn btn-sm btn-outline-success">
+                                Add to Cart </button>
+                            {{else}}
+                            <a href="/login"><button class="btn btn-sm btn-outline-success">
+                                Add to Cart </button></a>
+                            {{/if}}
                         </div>
                     </div>
+
                 </div>
                 {{/each}}
             </div>
         </div>
     </section>
     <script>
-        
+
     </script>
 </body>
-
-</html>
