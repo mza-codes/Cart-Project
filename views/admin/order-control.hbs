@@ -1,8 +1,8 @@
 <section>
     <div class="container">
         <div class="row">
-            <h1 class="glorius text-white m-auto pt-4 "> {{#if order}}Your Orders
-                {{else}}You Have'nt Ordered Anything {{/if}} </h1>
+            <h1 class="glorius text-white m-auto pt-4 "> {{#if order}}Total Orders
+                {{else}}There is no Orders Placed! {{/if}} </h1>
         </div>
         <hr>
         {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled
@@ -59,20 +59,20 @@
                     {{#if orderShipped}}
                     <a href="/admin/complete-order/{{this._id}}"><button
                             onclick="return confirm('This Order Will be Completed')"
-                            class=" ordercancelbtn font01 m-2">Complete Order</button></a>
+                            class="btn font01 m-2">Complete Order</button></a>
                     {{else}}
                     {{#if orderPackaged}}
                     <a href="/admin/ship-order/{{this._id}}"><button
                             onclick="return confirm('This Order Will be Shipped')"
-                            class=" ordercancelbtn font01 m-2">Ship Package</button></a>
+                            class=" font01 m-2">Ship Package</button></a>
                     {{else}}
                     <a href="/admin/pack-order/{{this._id}}"><button
                             onclick="return confirm('This Order Will be Packaged')"
-                            class=" ordercancelbtn font01 m-2">Package</button></a>
+                            class="btn btn-success font01 m-2">Package</button></a>
                     {{/if}}
                     {{/if}}
                     <a href="/cart/"><button onclick="return confirm('Redirecting to Cart')"
-                            class=" orderinfobtn font01 m-2">Need Help </button></a>
+                            class="btn btn-primary font01 m-2">Need Help </button></a>
                 </div>
                 <a href="/view-order-details/{{this._id}}" style="text-decoration: none; ">
                     <div class="">

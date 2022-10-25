@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title class="" style="font-family: 'Times New Roman', Times, serif;"> Life - Your Journey</title>
+    <title>MZA Shoping Cart</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     {{!-- #Data Tables JQuery --}}
@@ -15,19 +15,22 @@
     {{!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
     <script src="/javascripts/jquery.dataTables.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <style>
-        
+
     </style>
 </head>
 
-<body class="page light" style="z-index: 1;">
+<body class="light" id="page" style="z-index: 1;">
 
     {{#if user.admin}}
     {{>admin-header}}
     {{else}}
     {{>user-header}}
     {{/if}}
-    
+
     {{{body}}}
 
 

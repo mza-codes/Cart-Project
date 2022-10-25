@@ -189,10 +189,12 @@ module.exports = {
     changeQty: (data) => {
         let count = parseInt(data.count)
         let qty = parseInt(data.quantity)
-        console.log(data.count);
-        console.log('data first , count second');
         return new Promise((resolve, reject) => {
             console.log(qty);
+            if (data.product === '' || data.cart === '') {
+                console.log('NULL VALUES IN CART/PRODUCT');
+                resolve({ success: false, message: 'NULL VALUES IN CART/PRODUCT' })
+            }
             if (count == -1 && qty == 1) {
                 db.get().collection(values.CART_COLLECTION)
                     .updateOne({ _id: objectId(data.cart) },
@@ -201,6 +203,9 @@ module.exports = {
                         }
                     ).then((response) => {
                         resolve({ removed: true })
+                    }).catch((err) => {
+                        console.log('ERROR REMOVING PRODUCT');
+                        reject(err);
                     })
             } else {
                 db.get().collection(values.CART_COLLECTION)
@@ -279,7 +284,7 @@ module.exports = {
                     mobile: order.mobile,
                     pincode: order.pincode,
                 },
-                name:order.fullname,
+                name: order.fullname,
                 userId: objectId(order.userId),
                 paymentMethod: order.payment,
                 products: cartItems,
@@ -328,7 +333,7 @@ module.exports = {
     getOrderCount: (userId) => {
         return new Promise(async (resolve, reject) => {
             let count = null
-            let order = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId)}).toArray()
+            let order = await db.get().collection(values.ORDER_COLLECTION).find({ userId: objectId(userId) }).toArray()
 
             if (order != 0) {
                 count = order.length
@@ -429,8 +434,10 @@ module.exports = {
                 console.log('LOGGING ORDEREXIST VALUE', order);
                 await db.get().collection(values.PAYMENT_DETAILS).updateOne({ receipt: orderId },
                     {
-                        $set: { paymentDate: new Date().toLocaleString(),
-                                paymentComplete: false, },
+                        $set: {
+                            paymentDate: new Date().toLocaleString(),
+                            paymentComplete: false,
+                        },
                         $inc: { attempts: 1 },
 
                     })
@@ -503,7 +510,7 @@ module.exports = {
                             }
                         }),
                     await db.get().collection(values.PAYMENT_DETAILS)
-                        .updateOne({ id:order.id },
+                        .updateOne({ id: order.id },
                             {
                                 $set: {
                                     paymentComplete: true,

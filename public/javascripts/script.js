@@ -67,6 +67,9 @@ function delFromCart(cartId, proId) {
             if (response.removed) {
                 alert('Item removed from cart !')
                 location.reload()
+            }else if (response.sucess === false){
+                console.log(response);
+                alert('Unknown Error Occured !');
             } else {
                 document.getElementById(proId).innerHTML = quantity + count
             }
@@ -173,5 +176,5 @@ function verifyPayment(payment, order) {
 // When the user clicks on div, open the popup
 function miniCart() {
     var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
+    popup && popup.classList.toggle("show");
   }

@@ -41,15 +41,18 @@ router.get('/add-item', verifyAdmin, (req, res) => {
 router.post('/add-item', verifyAdmin, (req, res) => {
   if (req.body.picture) {
     itemHelpers.addItem(req.body, (result) => {
-      res.send('Successful By URL')
+      res.redirect('/')
     })
   } else {
     itemHelpers.addItem(req.body, (id) => {
-      let image = req.files.poster
+      let image = req?.files?.poster
+      if(!image){
+        res.redirect('/'); // include json to display error
+      }
       //console.log(id);
       image.mv('./public/poster-images/' + id + '.png', (err, done) => {
         if (!err) {
-          res.send('Success By Upload')
+          res.redirect('/')
         } else {
           console.log(err)
         }
@@ -73,12 +76,15 @@ router.get('/delete-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
     res.redirect('/admin/')
   })
 })
+
 router.get('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   //console.log(req.params.id)
   itemHelpers.getItem(req.params.id).then((item) => {
+    console.log(item);
     res.render('admin/edit-item', { item, user, adminstat })
   })
 })
+
 router.post('/edit-item/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
   itemHelpers.updateItem(req.params.id, req.body).then(() => {
     res.redirect('/admin')
