@@ -12,7 +12,6 @@ var hbs = require('express-handlebars');
 var fileUpload = require('express-fileupload')
 var db = require('./db-connect/connectdb');
 const { verify } = require('crypto');
-
 var app = express();
 
 // view engine setup
@@ -24,13 +23,14 @@ app.use(fileUpload())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:"Key",cookie:{maxAge:600000}}))
+app.use(session({secret:"Key",cookie:{maxAge:6050000}}))
 
 db.connect((err=>{
   if(err) console.log('Error Occured'+err);
-  else console.log('MongoDB Connected Successfully on port: 27017');
+  else console.log('MongoDB Connected Successfully');
 }))
 
 app.use('/', indexRouter);
