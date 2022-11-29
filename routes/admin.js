@@ -166,7 +166,7 @@ router.get('/ship-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
   console.log('LOG FROM ship x SHIP-ORDER')
   await itemHelpers.shipOrder(orderId).then(()=>{
     // res.redirect('/admin/order-control')
-    res.send('SUCCESS')
+    res.send('SUCCESS');
   })
 })
 router.get('/complete-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
@@ -174,12 +174,8 @@ router.get('/complete-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
   console.log('LOG FROM ship x complete-ORDER')
   await itemHelpers.completeOrder(orderId).then(()=>{
     // res.redirect('/admin/order-control')
-    res.send('SUCCESS')
+    res.send('SUCCESS');
   })
 })
-
-
-
-
 
 module.exports = router;
