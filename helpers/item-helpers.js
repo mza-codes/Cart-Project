@@ -172,19 +172,20 @@ module.exports = {
             resolve(status)
         })
     },
+    // Custom Update Functions :-
     updateAllItems: () => {
         return new Promise(async (resolve, reject) => {
-            let products = await db.get().collection(values.ITEM_COLLECTION).find({}, { sort: [['_id', 'desc']] }).toArray()
-            // let products= await db.get().collection(values.ITEM_COLLECTION).find().sort({KEY:1}).toArray()
-            await db.get().collection(values.ITEM_COLLECTION).updateMany({ genre: "Mystery" }, {
-                $set: {
-                    category: "Others",
-                }
-            }).then((res) => {
-                console.log("Update All Complete", res);
-                resolve();
-            }).catch((err) => { console.log(err); reject(); process.exit() });
-            // resolve(products)
-        })
+            await
+                // db.get().collection(values.ITEM_COLLECTION).updateMany({ genre: "Mystery" }, {
+                //     $set: {
+                //         category: "Others",
+                //     }
+                // })
+                db.get().collection(values.ITEM_COLLECTION).updateMany({}, { $unset: { year: 1, genre: 1 } }, { multi: true })
+                    .then((res) => {
+                        console.log("Update All Complete", res);
+                        resolve();
+                    }).catch((err) => { console.log(err); reject(); process.exit() });
+        });
     },
 }

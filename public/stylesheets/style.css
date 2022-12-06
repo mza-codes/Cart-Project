@@ -14,8 +14,20 @@
     }
 }
 
-:root{
-    --font-main: 'Urbanist','serif';
+:root {
+    --font-main: 'Urbanist', 'serif';
+}
+
+.urbanist h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a{
+font-family: 'Urbanist', 'serif';
 }
 
 .suBadge {
@@ -193,7 +205,7 @@
 }
 
 .voga {
-    font-family: 'Righteous','sans-serif';
+    font-family: 'Righteous', 'sans-serif';
     font-weight: 500;
 }
 
@@ -309,7 +321,7 @@
     border-radius: 6px;
 }
 
-.nav-link:hover{
+.nav-link:hover {
     transform: scale(1.1);
 }
 
@@ -628,10 +640,10 @@
 
 .header .contents .left {
     flex: 1;
-    
+
 }
 
-.header .contents .left .logo{
+.header .contents .left .logo {
     font-weight: 800;
     font-size: 25px;
 }

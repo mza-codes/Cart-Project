@@ -12,9 +12,9 @@
                         </a>
                         <img class="card-img-top card-image" srcset="{{this.picture}}"
                             src="/poster-images/{{this._id}}.png" alt="image">
-                        <div class="card-body cardBody">
-                            <h5 class="card-title">{{this.name}}</h5>
-                            <p class="category card-title">{{this.category}}</p>
+                        <div class="card-body cardBody urbanist">
+                            <h5 class="card-title font-weight-bold">{{this.name}}</h5>
+                            <p class="category card-title font-weight-light">{{this.category}}</p>
                             <h5 class="card-title">{{this.price}}/-</h5>
                             {{#if ../user}}
                             <button onclick="refreshCart('{{this._id}}')" class="btn btn-sm btn-outline-success">
@@ -31,11 +31,4 @@
             </div>
         </div>
     </section>
-    <script>
-        const category = document.querySelectorAll(".category");
-        console.log("Logging category",category.innerText);
-        if(!category.innerText){
-            category.innerText = "Others";
-        }
-    </script>
 </body>
