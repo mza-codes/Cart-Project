@@ -1,0 +1,20 @@
+.customInput {
+    border-radius: 8px;
+    padding: 4px 14px;
+    outline: none;
+    border: 1.5px solid gray;
+    background: rgba(255, 255, 255, 0.411);
+}
+
+.customInput:focus {
+    background: #fff;
+}
+
+.signupCard {
+    max-width: 400px;
+}
+
+.signupCard label {
+    color: var(--text-main);
+    /* color: red; */
+}
