@@ -46,7 +46,7 @@ router.post('/add-item', verifyAdmin, (req, res) => {
   } else {
     itemHelpers.addItem(req.body, (id) => {
       let image = req?.files?.poster
-      if(!image){
+      if (!image) {
         res.redirect('/'); // include json to display error
       }
       //console.log(id);
@@ -54,7 +54,8 @@ router.post('/add-item', verifyAdmin, (req, res) => {
         if (!err) {
           res.redirect('/')
         } else {
-          console.log(err)
+          console.log(err);
+          process.exit(0); // experimental;
         }
       })
     })
@@ -147,35 +148,41 @@ router.get('/delete-user/:id([0-9a-fA-F]{24})', verifyAdmin, (req, res) => {
     res.redirect('/admin')
   })
 })
-router.get('/order-control/', verifyAdmin,async (req, res) => {
+router.get('/order-control/', verifyAdmin, async (req, res) => {
   user = req.session.user
   console.log('LOG FROM ORDER-CONTROL')
   let order = await itemHelpers.getFullOrder()
-  console.log('LOGGING dATA XXCMAIN',order);
-  res.render('admin/order-control',{user,order})
+  console.log('LOGGING dATA XXCMAIN', order);
+  res.render('admin/order-control', { user, order })
 })
-router.get('/pack-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
+router.get('/pack-order/:id([0-9a-fA-F]{24})', verifyAdmin, async (req, res) => {
   orderId = req.params.id
   console.log('LOG FROM PACK-ORDER')
-  await itemHelpers.packageOrder(orderId).then(()=>{
+  await itemHelpers.packageOrder(orderId).then(() => {
     res.redirect('/admin/order-control')
   })
 })
-router.get('/ship-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
+router.get('/ship-order/:id([0-9a-fA-F]{24})', verifyAdmin, async (req, res) => {
   orderId = req.params.id
   console.log('LOG FROM ship x SHIP-ORDER')
-  await itemHelpers.shipOrder(orderId).then(()=>{
+  await itemHelpers.shipOrder(orderId).then(() => {
     // res.redirect('/admin/order-control')
     res.send('SUCCESS');
   })
 })
-router.get('/complete-order/:id([0-9a-fA-F]{24})',verifyAdmin,async(req,res)=>{
+router.get('/complete-order/:id([0-9a-fA-F]{24})', verifyAdmin, async (req, res) => {
   orderId = req.params.id
   console.log('LOG FROM ship x complete-ORDER')
-  await itemHelpers.completeOrder(orderId).then(()=>{
+  await itemHelpers.completeOrder(orderId).then(() => {
     // res.redirect('/admin/order-control')
     res.send('SUCCESS');
   })
 })
+
+// router.get('/updateAll', async (req, res) => {
+//   console.log("Updating all items");
+//   await itemHelpers.updateAllItems().then(() => console.log("COMPLETE"));
+//   return res.status(200).json({ message: "success" });
+// })
 
 module.exports = router;

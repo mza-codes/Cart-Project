@@ -1,50 +1,93 @@
 <section class="">
-    {{!-- <div class="container mt-4 ">
+  {{! <div class="container mt-4 ">
         <h1 class="glorius text-center">Add To Your Profile</h1>
         <hr>
-    </div> --}}
-    <div class="container ">
-        <div class="row">
-            <div class="col mx-auto mt-2 ">
-                <h1 class="glorius text-center mt-4 white-text">Add A Product</h1>
-                <hr>
-                <div class="bord m-auto p-2">
-                    <form action="/admin/add-item" method="post" class="text-center pt-3" enctype="multipart/form-data">
-                        <label for="name" class="form-text ">Name</label>
-                        <input type="text" name="name" class="form-text form-area mx-auto text-center"
-                        placeholder="Title" required>
+    </div> }}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col mx-auto mt-2">
+        <h1 class="glorius text-center mt-4 white-text">Add A Product</h1>
+        <hr />
+        <div class="addItemCard m-auto p-2">
+          <form
+            action="/admin/add-item"
+            method="post"
+            class="text-center pt-3"
+            enctype="multipart/form-data"
+          >
+            <label for="name" class="form-text">Name</label>
+            <input
+              type="text"
+              maxlength="18"
+              name="name"
+              class="form-text form-area mx-auto customInput"
+              placeholder="Title"
+              required
+            />
 
-                        <label for="genre" class="form-text ">Price</label>
-                        <input type="number" name="price" class="form-text form-area mx-auto text-center"
-                        placeholder="Cost" style="width: 30%;" required>
-                        
-                        <label for="year" class="form-text">Year</label>
-                        <input type="number" name="year" class="form-text form-area mx-auto text-center" 
-                        placeholder="Year" style="width: 25%;" required>
+            <label for="price" class="form-text">Price</label>
+            <input
+              type="number"
+              name="price"
+                maxlength="7"
+              class="form-text form-area mx-auto customInput"
+              placeholder="Price"
+              required
+            />
 
-                        <label for="genre" class="form-text ">Genre</label>
-                        <input type="text" name="genre" class="form-text form-area mx-auto text-center"
-                        placeholder="Genre" required>
+            <label for="Category" class="form-text">Category</label>
+            <input
+              type="text"
+              maxlength="18"
+              name="category"
+              class="form-text form-area mx-auto customInput"
+              placeholder="Category"
+              required
+            />
 
-                        <label for="poster" class="form-text">Image</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="" name="poster">
-                            <label class="custom-file-label mx-auto" for="customFile" style="width: 50%;" >Choose an image file</label>
-                            <p class="form-text">OR</p>
-                        </div>
-                        
-                        <label for="" class="form-text">Picture By Url</label>
-                        <input type="text" name="picture" placeholder="(optional)" class="form-text form-area mx-auto text-center" >
-                        
-                        <label for="description" class="form-text">Description</label>
-                        <textarea name="description"rows="5" class="descriptionbox text-center"style="border: 2px solid black;" placeholder="Enter a Description"></textarea>
-                        <br>
-                        <hr>
-                        <button type="submit" class="font01 mx-auto btn-dark mb-3 ">Submit</button>
-                    
-                    </form>
-                </div>
+            <label for="poster" class="form-text">Image</label>
+            <div class="custom-file" style="width: 50%;">
+              <input
+                type="file"
+                class="custom-file-input"
+                id=""
+                name="poster"
+              />
+              <label
+                class="custom-file-label mx-auto"
+                for="customFile"
+                style="width: 50%;"
+              >Choose an image file
+              </label>
+              <p class="">OR</p>
             </div>
+
+            <label for="" class="form-text">Picture By Url</label>
+            <input
+              type="text"
+              maxlength="18"
+              name="picture"
+              placeholder="(optional)"
+              class="form-text form-area mx-auto customInput"
+            />
+
+            <label for="description" class="form-text">Description</label>
+            <textarea
+              name="description"
+              rows="5"
+              class="customInput text-center"
+              placeholder="Enter a Description"
+            ></textarea>
+            <br />
+            <hr />
+            <button
+              type="submit"
+              class="font01 mx-auto customBtn mb-3"
+            >Submit</button>
+
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </section>

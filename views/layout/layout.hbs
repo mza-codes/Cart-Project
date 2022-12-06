@@ -37,7 +37,13 @@
 
     {{{body}}}
 
-
+    <footer class="footer">
+        <div class="copyRights" >
+        <h6>Copyrights © &nbsp;<span id="year"></span></h6>
+        <h5><a href="https://github.com/mza-codes/" target="_blank" rel="noreferrer" >mza-codes</a></h5>
+        <p>This Project was made from scratch while learning Web Development <span style="color:red;"> ❤ </span>!</p>
+        </div>
+    </footer>
 
     {{!--
     <script src="/javascripts/jquery.slim.min.js"></script> --}}
@@ -48,6 +54,13 @@
     <script src="/javascripts/theme.js"></script>
     {{!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <script>
+        if(window.location.pathname === "/"){
+            document.querySelector('.footer').style.visibility = "visible";
+        };
+        const date = new Date().getFullYear();
+        document.getElementById("year").innerText= date;
+    </script>
 
 
 </body>

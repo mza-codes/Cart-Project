@@ -43,8 +43,7 @@ module.exports = {
                     .updateOne({ _id: ObjectID(id) }, {
                         $set: {
                             name: itemDetails.name,
-                            year: itemDetails.year,
-                            genre: itemDetails.genre,
+                            category: itemDetails.category,
                             description: itemDetails.description,
                             price: cost,
                             picture: itemDetails.picture,
@@ -57,8 +56,7 @@ module.exports = {
                     .updateOne({ _id: ObjectID(id) }, {
                         $set: {
                             name: itemDetails.name,
-                            year: itemDetails.year,
-                            genre: itemDetails.genre,
+                            category: itemDetails.category,
                             price: cost,
                             description: itemDetails.description,
                         }
@@ -68,110 +66,125 @@ module.exports = {
             }
         })
     },
-    // -------------- WebUsers Modification Section ------------------------------------------ //
-    getWebUsers:()=>{
-        return new Promise(async(resolve,reject)=>{
+    // -------------- WebUsers Modification Section ----------------- //
+    getWebUsers: () => {
+        return new Promise(async (resolve, reject) => {
             webusers = await db.get().collection(values.USER_COLLECTION).find({}, { sort: [['admin', 'desc']] }).toArray()
-            console.log('LOGGING WEBUSERS FROM LINE 73',webusers);
+            console.log('LOGGING WEBUSERS FROM LINE 73', webusers);
             length = webusers.length
             webusers.count = length
             resolve(webusers)
         })
     },
-    getUser:async(userId)=>{
-        let webuser = await db.get().collection(values.USER_COLLECTION).findOne({_id:objectId(userId)})
-        return webuser ;
+    getUser: async (userId) => {
+        let webuser = await db.get().collection(values.USER_COLLECTION).findOne({ _id: objectId(userId) })
+        return webuser;
     },
-    updateUser:async(userId,userData)=>{
+    updateUser: async (userId, userData) => {
         userData.password = await bcrypt.hash(userData.password, 10)
         db.get().collection(values.USER_COLLECTION)
-                    .updateOne({ _id: ObjectID(userId) }, {
-                        $set: {
-                            name: userData.name,
-                            email:userData.email,
-                            password:userData.password,
-                            admin:userData.admin
-                        }
-                    })
-            return true
+            .updateOne({ _id: ObjectID(userId) }, {
+                $set: {
+                    name: userData.name,
+                    email: userData.email,
+                    password: userData.password,
+                    admin: userData.admin
+                }
+            })
+        return true
 
     },
-    delUser:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(values.CART_COLLECTION).deleteMany({user:objectId(userId)})
-                //await db.get().collection(values.ORDER_COLLECTION).delete({_id:objectId(userId)})
-                await db.get().collection(values.WISHLIST_COLLECTION).deleteMany({user:objectId(userId)})
-                await db.get().collection(values.ORDER_COLLECTION)
+    delUser: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(values.CART_COLLECTION).deleteMany({ user: objectId(userId) })
+            //await db.get().collection(values.ORDER_COLLECTION).delete({_id:objectId(userId)})
+            await db.get().collection(values.WISHLIST_COLLECTION).deleteMany({ user: objectId(userId) })
+            await db.get().collection(values.ORDER_COLLECTION)
                 .updateMany({ userId: ObjectID(userId) }, {
                     $set: {
                         userAccountRemoved: true
                     }
                 })
-                await db.get().collection(values.CANCELLED_ORDERS)
+            await db.get().collection(values.CANCELLED_ORDERS)
                 .updateMany({ userId: ObjectID(userId) }, {
                     $set: {
                         userAccountRemoved: true,
                         orderStatus: false
                     }
                 })
-            await db.get().collection(values.USER_COLLECTION).deleteOne({_id:objectId(userId)}).then(async(response)=>{
-                
-                console.log('logging MAINRESPONSEE',response);
+            await db.get().collection(values.USER_COLLECTION).deleteOne({ _id: objectId(userId) }).then(async (response) => {
+
+                console.log('logging MAINRESPONSEE', response);
 
                 resolve(true)
             })
         })
     },
-    getFullOrder : ()=>{
-        return new Promise(async(resolve,reject)=>{
-            data = await db.get().collection(values.ORDER_COLLECTION).find({},{ sort: [['orderDate', 'desc']] }).toArray()
+    getFullOrder: () => {
+        return new Promise(async (resolve, reject) => {
+            data = await db.get().collection(values.ORDER_COLLECTION).find({}, { sort: [['orderDate', 'desc']] }).toArray()
             data.count = data.length
             resolve(data)
-            
-        }) 
+
+        })
     },
-    packageOrder:(orderId)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(values.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-            {
-                $set:{
-                    orderStatus:"Packaged",
-                    orderPackaged: true,
-                    packageDate: new Date().toLocaleString(),
-                }
-            })
+    packageOrder: (orderId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(values.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) },
+                {
+                    $set: {
+                        orderStatus: "Packaged",
+                        orderPackaged: true,
+                        packageDate: new Date().toLocaleString(),
+                    }
+                })
             let status = true
             resolve(status)
         })
     },
-    shipOrder:(orderId)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(values.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-            {
-                $set:{
-                    orderStatus:"Order Shipped",
-                    orderPackaged: false,
-                    orderShipped: true,
-                    shippingDate: new Date().toLocaleString(),
-                }
-            })
+    shipOrder: (orderId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(values.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) },
+                {
+                    $set: {
+                        orderStatus: "Order Shipped",
+                        orderPackaged: false,
+                        orderShipped: true,
+                        shippingDate: new Date().toLocaleString(),
+                    }
+                })
             let status = true
             resolve(status)
         })
     },
-    completeOrder:(orderId)=>{
-        return new Promise(async(resolve,reject)=>{
-            await db.get().collection(values.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-            {
-                $set:{
-                    orderStatus:"Delivered",
-                    orderShipped: false,
-                    orderDelivered: true,
-                    deliveredDate: new Date().toLocaleString(),
-                }
-            })
+    completeOrder: (orderId) => {
+        return new Promise(async (resolve, reject) => {
+            await db.get().collection(values.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) },
+                {
+                    $set: {
+                        orderStatus: "Delivered",
+                        orderShipped: false,
+                        orderDelivered: true,
+                        deliveredDate: new Date().toLocaleString(),
+                    }
+                })
             let status = true
             resolve(status)
+        })
+    },
+    updateAllItems: () => {
+        return new Promise(async (resolve, reject) => {
+            let products = await db.get().collection(values.ITEM_COLLECTION).find({}, { sort: [['_id', 'desc']] }).toArray()
+            // let products= await db.get().collection(values.ITEM_COLLECTION).find().sort({KEY:1}).toArray()
+            await db.get().collection(values.ITEM_COLLECTION).updateMany({ genre: "Mystery" }, {
+                $set: {
+                    category: "Others",
+                }
+            }).then((res) => {
+                console.log("Update All Complete", res);
+                resolve();
+            }).catch((err) => { console.log(err); reject(); process.exit() });
+            // resolve(products)
         })
     },
 }

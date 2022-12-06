@@ -3,6 +3,11 @@
     font-weight: 500;
 }
 
+/* a{
+    text-decoration: none !important;
+    color: limegreen !important;
+} */
+
 @media (max-width: 991px) {
     .suBadge {
         display: none !important;
@@ -185,8 +190,6 @@
     background: radial-gradient(rgb(244, 236, 236), rgb(61, 61, 61));
     /* background: radial-gradient(rgb(0, 0, 0),rgb(0, 0, 0));
     color: rgb(134, 5, 5); */
-
-
 }
 
 .voga {
@@ -299,15 +302,25 @@
 }
 
 .nav-link {
+    text-transform: uppercase;
     color: var(--text-main) !important;
+    background: var(--theme-1);
+    margin: 0px 4px;
+    border-radius: 6px;
+}
+
+.nav-link:hover{
+    transform: scale(1.1);
 }
 
 .navbar-brand {
+    text-transform: uppercase;
     color: var(--text-main) !important;
 }
 
 .light {
     background-color: #C6DCE4;
+    --theme-1: #C6D2E4;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -322,6 +335,7 @@
 
 .dark {
     background-color: rgb(218, 215, 188);
+    --theme-1: rgb(218, 215, 128);
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -336,6 +350,7 @@
 
 .blue {
     background-color: #9ED2C6;
+    --theme-1: #9ED2C6;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -350,6 +365,7 @@
 
 .pale {
     background-color: #F8C4B4;
+    --theme-1: #F8C2B4;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -364,6 +380,7 @@
 
 .lime {
     background-color: #aee484;
+    --theme-1: #aee284;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -378,6 +395,7 @@
 
 .lightpink {
     background-color: #FFCACA;
+    --theme-1: #FFC2CA;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -392,6 +410,7 @@
 
 .xlpink {
     background-color: #FFECEF;
+    --theme-1: #FFE2EF;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -406,6 +425,7 @@
 
 .darkblue {
     background-color: #251B37;
+    --theme-1: #251237;
     --text-main: #ffffff;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -422,6 +442,7 @@
 
 .xlbrown {
     background-color: #ffdf98;
+    --theme-1: #ffd298;
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -438,6 +459,7 @@
 .lightbrown {
     /* 967E76 */
     background-color: #a79470;
+    --theme-1: #a79270;
     --text-main: #ffffff;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -451,7 +473,8 @@
 }
 
 .orange {
-    background: radial-gradient(rgb(255, 255, 255), rgb(220, 93, 2));
+    /* background: radial-gradient(rgb(255, 255, 255), rgb(220, 93, 2)); */
+    background: linear-gradient(to right, rgb(255, 200, 118), rgb(220, 93, 2));
     --text-main: #000000;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -465,7 +488,8 @@
 }
 
 .purple {
-    background: radial-gradient(rgb(159, 0, 56), rgb(5, 11, 10));
+    /* background: radial-gradient(rgb(159, 0, 56), rgb(5, 11, 10)); */
+    background: linear-gradient(to right, rgb(159, 0, 56), rgb(243, 155, 255));
     --text-main: #ffffff;
     --badge-cart: rgb(5, 113, 1);
     --badge-text: white;
@@ -573,6 +597,7 @@
     /* background-color: #ff8686; */
     /* background: var(--bg-card); */
     visibility: visible;
+    text-transform: capitalize;
 }
 
 .centerX {
