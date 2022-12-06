@@ -1,0 +1,71 @@
+.customInput {
+    border-radius: 8px;
+    padding: 4px 14px;
+    outline: none;
+    border: 1.5px solid gray;
+    background: rgba(255, 255, 255, 0.411);
+}
+
+.customInput::placeholder{
+    color: var(--text-main);
+    opacity: 0.4;
+}
+
+.customInput:focus {
+    background: #fff;
+}
+
+.signupCard {
+    max-width: 400px;
+}
+
+.signupCard label {
+    color: var(--text-main);
+    /* color: red; */
+}
+
+.customBtn {
+    outline: none;
+    border: none;
+    background: rgb(0, 110, 110);
+    /* background: var(--theme-1); */
+    font-weight: 500;
+    color: #fff;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.custmBtn:hover {
+    background: rgb(0, 110, 92);
+    /* background: var(--theme-1); */
+}
+
+.addItemCard{
+    width: 90%;
+}
+
+.footer{
+    visibility: hidden;
+    margin-top: 1rem;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(17, 17, 17, 0.575);
+}
+
+.copyRights{
+    color:#fff ;
+}
+.copyRights a {
+    color: lime !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card-title{
+    color: rgb(75, 75, 75);
+}

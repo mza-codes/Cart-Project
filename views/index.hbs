@@ -4,9 +4,7 @@
             <div class=" centerX">
                 {{#each products}}
                 <div>
-                    <div class="card cardImg" style="width: 18rem;">
-                        {{!-- <img src="/images/love.png" class="float-right mt-2" alt=""
-                            style="width:0.8rem ;height:0.8rem ;"> --}}
+                    <div class="card cardImg" style="max-width: 18rem; width:18em;">
                         <a class="pointer" {{#if ../user}} onclick="addToWishlist('{{this._id}}')" {{else}}
                             href="/login" {{/if}}>
                             <img src="/images/love.png" class="mt-2" alt=""
@@ -14,12 +12,10 @@
                         </a>
                         <img class="card-img-top card-image" srcset="{{this.picture}}"
                             src="/poster-images/{{this._id}}.png" alt="image">
-                        <div class="card-body cardBody">
-                            <h5 class="card-title">{{this.name}}</h5>
-                            <p class="card-title">{{this.genre}}</p>
+                        <div class="card-body cardBody urbanist">
+                            <h5 class="card-title font-weight-bold">{{this.name}}</h5>
+                            <p class="category card-title font-weight-light">{{this.category}}</p>
                             <h5 class="card-title">{{this.price}}/-</h5>
-                            <p class="card-text">{{this.description}}</p>
-                            {{!-- <a href="#" class="btn btn-sm btn-primary">{{this.price}}/-</a> --}}
                             {{#if ../user}}
                             <button onclick="refreshCart('{{this._id}}')" class="btn btn-sm btn-outline-success">
                                 Add to Cart </button>
@@ -35,7 +31,4 @@
             </div>
         </div>
     </section>
-    <script>
-
-    </script>
 </body>
