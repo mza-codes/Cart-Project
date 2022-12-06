@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var itemHelpers = require('../helpers/item-helpers')
-const fs = require('fs');
+const fs = require('fs-extra');
 // let adminStatus = false
 
 const verifyAdmin = (req, res, next) => {
