@@ -29,12 +29,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(session({ secret: "Key", cookie: { maxAge: 6050000 } }));
 app.use(session({
-  name: 'codeil',
-  secret: 'something',
-  resave: false,
+  name: 'mza_Cart',
+  secret: 'm$cookie',
+  resave: true,
   saveUninitialized: true,
   cookie: {
-    maxAge: (1000 * 60 * 90)
+    maxAge: (1000 * 60 * 100)
   }
 }));
 
