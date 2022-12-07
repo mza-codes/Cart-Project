@@ -6,22 +6,17 @@ let adminStatus = false
 let cartCount = null
 // let orderCount = null
 const verifyLogin = async (req, res, next) => {
+  console.log("Loggin userSession: ",req.session);
   if (req.session.loggedIn) {
-    user = req.session.user
-    adminstat = req.session.user.admin
-    let cartCount = await userHelpers.getCartCount(user._id)
-    let orderCount = await userHelpers.getOrderCount(user._id)
-    let wishlistCount = await userHelpers.getWishlistCount(user._id)
-    user.wishlistCount = wishlistCount
-    user.cartCount = cartCount
-    user.orderCount = orderCount
+    user = req.session.user;
+    user.cartCount = await userHelpers.getCartCount(user._id);
+    user.orderCount = await userHelpers.getOrderCount(user._id);
+    user.wishlistCount = await userHelpers.getWishlistCount(user._id);
     if (user.cartCount) {
-      cartItems = await userHelpers.getCart(req.session.user._id)
-      user.cartItems = cartItems
+      user.cartItems = await userHelpers.getCart(req.session.user._id);
     } else {
-      user.cartItems = null
-    }
-
+      user.cartItems = null;
+    };
     console.log('USER from MAIN', user);
     next()
   } else {
@@ -40,16 +35,11 @@ router.get('/', async function (req, res, next) {
     user.cartCount = await userHelpers.getCartCount(req.session.user._id)
     user.orderCount = await userHelpers.getOrderCount(req.session.user._id)
     user.wishlistCount = await userHelpers.getWishlistCount(user._id)
-    user.cartItems = await userHelpers.getCart(req.session.user._id)
-    // if(user.cartCount){
-    //   cartItems = await userHelpers.getCart(req.session.user._id)
-    // }else{
-    //   cartItems = null
-    // }
+    user.cartItems = await userHelpers.getCart(req.session.user._id);
     itemHelpers.getAllItems().then((products) => {
       console.log(user);
       res.render('index', { title: 'Life - Your Journey', products, user, adminstat });
-    })
+    });
   } else {
     itemHelpers.getAllItems().then((products) => {
       console.log(user);
