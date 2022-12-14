@@ -5,11 +5,9 @@
                 {{else}}There is no Orders Placed! {{/if}} </h1>
         </div>
         <hr>
-        {{!-- <a href="#cancelled" class="text-center"><span class="badge badge-danger font01">Cancelled
-                Orders</span></a> --}}
+        
         {{#if order}}
 
-        {{!-- {{#if this.orderstatus}} --}}
         <p class="text-center text-white font01" id="message">Listing Total of {{order.count}} Orders from Database</p>
         {{#each order}}
         <div class="row -auto">
