@@ -5,6 +5,7 @@
   "scripts": {
     "deploy": "node ./bin/www",
     "start": "nodemon ./bin/www",
+    "dev": "nodemon ./bin/www",
     "production": "pm2 start ./bin/www"
   },
   "dependencies": {
