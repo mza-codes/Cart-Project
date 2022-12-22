@@ -1,0 +1,36 @@
+<section class="container-fluid">
+  <h2 class="text-center my-3">Product Details</h2>
+  <div class="row">
+    <div class="col-12 col-md-6 p-2 imgSection">
+      <img
+        src="/poster-images/{{product._id}}.png"
+        srcset="{{product.picture}}"
+        alt="product image"
+        class="productImage"
+      />
+    </div>
+    <div class="col-12 col-md-6 p-2 text-center detailsSection">
+      <h2 class="font-weight-bold">
+        {{product.name}}
+      </h2>
+      <h3 class="font-weight-bolder text-dark">
+        Price: {{product.price}}
+      </h3>
+      {{#if product.category}}
+      <h5> Category: {{product.category}} </h5>
+      {{/if}}
+      {{#if product.description}}
+      <h6 class="font-italic"> Description: {{product.description}} </h6>
+      {{/if}}
+      <a {{#if user._id}} onclick="refreshCart('{{product._id}}')" {{else}} href="/login" {{/if}}
+        class="btn btn-sm btn-success pointer">
+            Add to Cart 
+        </a>
+      <a class="pointer btn btn-sm wishlistBtn" {{#if user._id}} onclick="addToWishlist('{{product._id}}')" {{else}}
+        href="/login" {{/if}} title="Add to Wishlist">
+        Add To Wishlist
+        </a>
+    </div>
+  </div>
+  <hr>
+</section>

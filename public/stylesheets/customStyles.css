@@ -6,7 +6,7 @@
     background: rgba(255, 255, 255, 0.411);
 }
 
-.customInput::placeholder{
+.customInput::placeholder {
     color: var(--text-main);
     opacity: 0.4;
 }
@@ -17,6 +17,14 @@
 
 .signupCard {
     max-width: 400px;
+}
+
+.signupCard input[type="password"] {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.signupCard input[type="password"]::placeholder {
+    font-family: 'Urbanist', 'serif';
 }
 
 .signupCard label {
@@ -40,11 +48,11 @@
     /* background: var(--theme-1); */
 }
 
-.addItemCard{
+.addItemCard {
     width: 90%;
 }
 
-.footer{
+.footer {
     visibility: hidden;
     margin-top: 1rem;
     width: 100%;
@@ -57,15 +65,81 @@
     background: rgba(17, 17, 17, 0.575);
 }
 
-.copyRights{
-    color:#fff ;
+.copyRights {
+    color: #fff;
 }
+
 .copyRights a {
     color: lime !important;
     text-decoration: none;
     cursor: pointer;
 }
 
-.card-title{
+.card-title {
     color: rgb(75, 75, 75);
+}
+
+.themeBtn {
+    color: var(--text-main);
+    opacity: 0.4;
+}
+
+.themeBtn:hover {
+    opacity: 1;
+    color: var(--text-main);
+}
+
+.favIcon {
+    /* color: rgb(255, 45, 80); */
+    color: #fff;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    opacity: 0.6;
+}
+
+.favIcon:hover {
+    opacity: 1;
+    color: red;
+}
+
+#wishlist-count {
+    background-color: var(--badge-wishlist);
+    color: var(--text-secondary);
+}
+
+#wishlist-count:empty {
+    visibility: hidden;
+}
+
+.productImage {
+    max-width: 96vw;
+    max-height: 96vh;
+    width: 100%;
+    height: 100%;
+}
+
+/* .imgSection{
+    max-width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.wishlistBtn{
+    background-color: rgb(255, 121, 143);
+    
+}
+
+.wishlistBtn:hover{
+    background-color: rgb(255, 76, 106);
+
+}
+
+.detailsSection{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
 }

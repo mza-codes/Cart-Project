@@ -3,20 +3,17 @@
         {{!-- NEW BTN THEME MODE --}}
         <div class="toggle">
             <button id="theme" onclick=replaceClass() hidden></button>
-            <label for="theme" class="toggle-label pointer">
-                <img src="/images/moon.png" alt="" class="toggle-icon">
+            <label for="theme" class="toggle-label pointer themeBtn" title="Randomize Color" >
+                <iconify-icon icon="fluent:dark-theme-24-filled" width="32" height="32">
             </label>
         </div>
         {{!-- END --}}
-        {{!-- <a class="navbar-brand voga" href="/admin">{{#if user}}{{user.name}} | Admin Panel {{else}} Admin Panel
-            {{/if}}</a> --}}
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        {{!-- {{#if user.superAdmin}}
-        <span class="font01 suBadge badge badge-success" style="cursor: pointer;">SU Mode</span>
-        {{/if}} --}}
+        
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
@@ -59,20 +56,7 @@
                             style="background-color: var(--badge-order); color: var(--badge-text);">{{user.orderCount}}</span></a>
                 </li>
                 {{/if}}
-                {{!-- <li class="nav-item active">
-                    <a class="nav-link voga" href="/wishlist">Wishlist <span class="badge badge-warning font01"
-                            id="wishlist-count"
-                            style="background-color: var(--badge-wishlist); color:var(--text-secondary)">{{user.wishlistCount}}</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link voga" href="/admin/order-control/">Control Panel</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link voga" href="/admin">All Items</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link voga" href="/help">Report a Problem</a>
-                </li> --}}
+                
                 <div class="dropdown voga mr-4">
                     <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -89,7 +73,7 @@
                         <a class="dropdown-item" href="/profile">Profile</a>
                         <a class="dropdown-item" href="/logout">Logout</a>
                         <a class="dropdown-item" href="/wishlist">Wishlist <span class="badge badge-warning font01"
-                                id="wishlist-count" style="background-color: var(--badge-wishlist); color:var(--text-secondary)">
+                                id="wishlist-count">
                                 {{user.wishlistCount}}</span></a>
                         <a class="dropdown-item" href="/help">Help</a>
                         <a class="dropdown-item" href="/admin/order-control/">Panel</a>

@@ -1,14 +1,13 @@
 <body>
     <section id="mainbody">
         <div class="container-fluid">
-            <div class=" centerX">
+            <div class="centerX">
                 {{#each products}}
                 <div>
                     <div class="card cardImg" style="max-width: 18rem; width:18em;">
-                        <a class="pointer" {{#if ../user}} onclick="addToWishlist('{{this._id}}')" {{else}}
-                            href="/login" {{/if}}>
-                            <img src="/images/love.png" class="mt-2" alt=""
-                                style="width:0.8rem; right: 0; margin-right: 0.4rem; position: absolute; height:0.8rem;">
+                        <a class="pointer favIcon" {{#if ../user}} onclick="addToWishlist('{{this._id}}')" {{else}}
+                            href="/login" {{/if}} title="Add to Wishlist">
+                            <iconify-icon icon="mdi:favourite" width="24" height="24">
                         </a>
                         <img class="card-img-top card-image" srcset="{{this.picture}}"
                             src="/poster-images/{{this._id}}.png" alt="image">
@@ -16,13 +15,17 @@
                             <h5 class="card-title font-weight-bold">{{this.name}}</h5>
                             <p class="category card-title font-weight-light">{{this.category}}</p>
                             <h5 class="card-title">{{this.price}}/-</h5>
-                            {{#if ../user}}
-                            <button onclick="refreshCart('{{this._id}}')" class="btn btn-sm btn-outline-success">
-                                Add to Cart </button>
-                            {{else}}
-                            <a href="/login"><button class="btn btn-sm btn-outline-success">
-                                Add to Cart </button></a>
-                            {{/if}}
+                            
+                            <a {{#if ../user}} onclick="refreshCart('{{this._id}}')" {{else}} href="/login" {{/if}}
+                                class="btn btn-sm btn-outline-success pointer">
+                                Add to Cart 
+                            </a>
+
+                            <a class="btn btn-sm btn-outline-dark pointer" 
+                            href="/view-product/{{this._id}}" >
+                                View Product
+                            </a>
+                            
                         </div>
                     </div>
 

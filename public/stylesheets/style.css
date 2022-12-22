@@ -286,6 +286,8 @@ font-family: 'Urbanist', 'serif';
 
 .toggle {
     /* position: relative; */
+    display: flex;
+    align-items: center;
     width: 3rem;
     height: 3rem;
 }

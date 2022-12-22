@@ -6,7 +6,7 @@ let adminStatus = false
 let cartCount = null
 // let orderCount = null
 const verifyLogin = async (req, res, next) => {
-  console.log("Loggin userSession: ",req.session);
+  console.log("Loggin userSession: ", req.session);
   if (req.session.loggedIn) {
     user = req.session.user;
     user.cartCount = await userHelpers.getCartCount(user._id);
@@ -238,7 +238,15 @@ router.get('/delfromwishlist/:id([0-9a-fA-F]{24})', verifyLogin, async (req, res
   userId = req.session.user._id
   stat = await userHelpers.removeFromWishlist(proId, userId)
   res.json(stat)
-})
+});
+
+router.get('/view-product/:id([0-9a-fA-F]{24})', async (req, res) => {
+  let proId = req.params.id;
+  let user = req.session.user;
+  const product = await itemHelpers.getItem(proId);
+  console.log("Single Product", product);
+  return res.render('user/view-product', { user, product });
+});
 
 // ---------------------End----------------------------------//
 module.exports = router;
