@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoClient = require('mongodb').MongoClient
 const state = {
-    db: null
+    db: /**@type {import("mongodb").Db} */ (null)
 }
 module.exports.connect = (connected) => {
     // const url ='mongodb://localhost:27017'
